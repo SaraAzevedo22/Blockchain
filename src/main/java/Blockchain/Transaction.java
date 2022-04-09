@@ -1,6 +1,5 @@
 package Blockchain;
-import java.util.List;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class Transaction {
@@ -8,12 +7,25 @@ public class Transaction {
     public String sourceName;
     public String destinationName;
     public Long sum;
+    public long timestamp;
+    public String hashBlock;
 
-    //Constructor
+    //Constructor to create Transaction
     public Transaction(String sourceName, String destinationName, Long sum) {
         this.sourceName = sourceName;
         this.destinationName = destinationName;
         this.sum = sum;
+        transactionIsValid();
+    }
+
+    public void transactionIsValid(){
+        this.timestamp = new Date().getTime();
+        this.hashBlock = calculateHash();
+    }
+
+    public String calculateHash(){
+        return "";
+        //return Misc.applyEncryption(this.senderPK+this.receiverPK+this.timestamp+this.amount+this.misc);
     }
 
     //Getters and Setters
