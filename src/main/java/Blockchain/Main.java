@@ -8,6 +8,7 @@ public class Main {
 
         List<Block> blockchain = new ArrayList<>();
 
+        /*
         Transaction transaction1 = new Transaction("Peter", "Sam", 15000L);
         Transaction transaction2 = new Transaction("Sam", "Ryan", 10500L);
         Transaction transaction3 = new Transaction("Sam", "Ryan", 1000L);
@@ -21,6 +22,6 @@ public class Main {
         System.out.println(secondBlock.hashCode());
         blockchain.add(secondBlock);
 
-        System.out.println(blockchain);
+        System.out.println(blockchain);*/
     }
 }

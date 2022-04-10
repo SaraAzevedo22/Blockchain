@@ -1,20 +1,23 @@
 package Blockchain;
 import java.lang.String;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class Block {
-
+    public String hashId;
     public String hashBlock;
-    public int previousHash;
-    public List<Transaction> transactions;
+    public String previousHash;
+    // TODO Verify - List<Transaction> was changed to List<String>
+    public List<String> transactions;
     public int nonce = 0;
     public long timestamp;
     public static int difficulty = 5;
 
     //Constructor to create the Block
-    public Block(int previousHash, List<Transaction> transactions) {
+    public Block(String hashId, String previousHash, List<String> transactions) {
+        this.hashId = hashId;
         this.hashBlock = calculateHash();
         this.previousHash = previousHash;
         this.transactions = transactions;
@@ -25,10 +28,30 @@ public class Block {
         //this.blockHash = Arrays.hashCode(content);
     }
 
+    //Calculate SHA256
+    public static String calculateSHA256(String base) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuilder hexString = new StringBuilder();
+            for (int i = 0; i < hash.length; i++) {
+                final String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
     //Calculate actual hash
     public String calculateHash() {
-        //TODO Call merkle tree
-        return "";
+        MerkleTree merkleTree = new MerkleTree(transactions);
+        merkleTree.merkle_tree();
+        // TODO Get MerkleTreeRoot??
+        return calculateSHA256(this.hashId + this.previousHash + this.timestamp + this.nonce);
     }
 
     // TODO Change the difficulty
@@ -45,19 +68,19 @@ public class Block {
     }
 
     //Getters and Setters
-    public int getPreviousHash() {
+    public String getPreviousHash() {
         return previousHash;
     }
 
-    public void setPreviousHash(int previousHash) {
+    public void setPreviousHash(String previousHash) {
         this.previousHash = previousHash;
     }
 
-    public List<Transaction> getTransactions() {
+    public List<String> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(List<String> transactions) {
         this.transactions = transactions;
     }
 
