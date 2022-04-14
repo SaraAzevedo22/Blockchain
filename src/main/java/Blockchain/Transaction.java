@@ -2,7 +2,7 @@ package Blockchain;
 import java.util.Date;
 import java.util.Objects;
 
-public class Transaction {
+public class Transaction extends Config{
 
     public String sourceName;
     public String destinationName;
@@ -24,10 +24,10 @@ public class Transaction {
     }
 
     public String calculateHash(){
-        return "";
-        //return Misc.applyEncryption(this.senderPK+this.receiverPK+this.timestamp+this.amount+this.misc);
+        return Config.calculateSHA256(this.sourceName + this.destinationName + this.timestamp + this.sum);
     }
 
+/*
     //Getters and Setters
     public String getSourceName() {
         return sourceName;
@@ -52,7 +52,7 @@ public class Transaction {
     public void setSum(Long sum) {
         this.sum = sum;
     }
-
+*/
     //Equals and Hash Code
     @Override
     public boolean equals(Object o) {

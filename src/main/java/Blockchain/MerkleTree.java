@@ -1,13 +1,8 @@
 package Blockchain;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-//import java.security;
 
-
-public class MerkleTree {
+public class MerkleTree extends Config{
     String root; //Merkle Tree root
     List<String> transactionsList; //List of Transactions
 
@@ -43,17 +38,14 @@ public class MerkleTree {
                 right = tempTransactionsList.get(i);
             }
             String finalHash = left + right;
-            MessageDigest digest = null;
-            try {
-                digest = MessageDigest.getInstance("SHA-256");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-            byte[] stringHash = digest.digest(
-                    finalHash.getBytes(StandardCharsets.UTF_8));
-            finalList.add(String.valueOf(stringHash));
+            String finalHashedString = calculateSHA256(finalHash);
+            finalList.add(finalHashedString);
             i++;
         }
         return finalList;
+    }
+
+    public String getRoot(){
+        return this.root;
     }
 }

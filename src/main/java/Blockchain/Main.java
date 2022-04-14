@@ -1,12 +1,25 @@
 package Blockchain;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
+
 
 public class Main {
     public static void main(String[] args){
 
-        List<Block> blockchain = new ArrayList<>();
+       /* List<String> tempTxList = new ArrayList<String>();
+        tempTxList.add("My");
+        tempTxList.add("name");
+        tempTxList.add("is");
+        tempTxList.add("Nikhil");
+        tempTxList.add("sara");
+
+        MerkleTree merkleTrees = new MerkleTree(tempTxList);
+        merkleTrees.merkle_tree();
+        System.out.println("root : " + merkleTrees.getRoot());
+*/
+
+
+        // b4ad42740f74141d5dc4472608c9f8aebff7fcb7694da2edbf4241f292ba5549 sara
+
+        //List<Block> blockchain = new ArrayList<>();
 
         /*
         Transaction transaction1 = new Transaction("Peter", "Sam", 15000L);

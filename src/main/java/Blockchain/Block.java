@@ -1,11 +1,11 @@
 package Blockchain;
 import java.lang.String;
-import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Block {
+
+public class Block extends Config{
     public String hashId;
     public String hashBlock;
     public String previousHash;
@@ -28,24 +28,6 @@ public class Block {
         //this.blockHash = Arrays.hashCode(content);
     }
 
-    //Calculate SHA256
-    public static String calculateSHA256(String base) {
-        try{
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(base.getBytes("UTF-8"));
-            StringBuilder hexString = new StringBuilder();
-            for (int i = 0; i < hash.length; i++) {
-                final String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1)
-                    hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch(Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-
     //Calculate actual hash
     public String calculateHash() {
         MerkleTree merkleTree = new MerkleTree(transactions);
@@ -66,7 +48,7 @@ public class Block {
         System.out.println("Hash Calculated: " + this.hashBlock);
         return nonce;
     }
-
+/*
     //Getters and Setters
     public String getPreviousHash() {
         return previousHash;
@@ -82,7 +64,7 @@ public class Block {
 
     public void setTransactions(List<String> transactions) {
         this.transactions = transactions;
-    }
+    }*/
 
     //Equals and Hash Code
     @Override
