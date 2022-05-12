@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Block extends Config{
+public class Block {
     public String hashId;
     public String hashBlock;
     public String previousHash;
@@ -13,7 +13,6 @@ public class Block extends Config{
     public List<String> transactions;
     public int nonce = 0;
     public long timestamp;
-    public static int difficulty = 5;
 
     //Constructor to create the Block
     public Block(String hashId, String previousHash, List<String> transactions) {
@@ -33,20 +32,24 @@ public class Block extends Config{
         MerkleTree merkleTree = new MerkleTree(transactions);
         merkleTree.merkle_tree();
         // TODO Get MerkleTreeRoot??
-        return calculateSHA256(this.hashId + this.previousHash + this.timestamp + this.nonce);
+        return Config.calculateSHA256(this.hashId + this.previousHash + this.timestamp + this.nonce);
     }
 
     // TODO Change the difficulty
     //Mining the block
-    public int mineBlock(int difficulty) {
-        String prefix = new String(new char[difficulty]).replace('\0','0');
-        while(!hashBlock.substring(0, difficulty).equals(prefix)) {
+    public int mineBlock() {
+        String prefix = new String(new char[Config.difficulty]).replace('\0','0');
+        while(!hashBlock.substring(0, Config.difficulty).equals(prefix)) {
             nonce++;
             hashBlock = calculateHash();
         }
         System.out.println("Nonce that Solves proof of work:" + nonce);
         System.out.println("Hash Calculated: " + this.hashBlock);
         return nonce;
+    }
+
+    public boolean isValid(){
+        return this.hashId.equals(calculateHash());
     }
 /*
     //Getters and Setters
@@ -78,5 +81,9 @@ public class Block extends Config{
     @Override
     public int hashCode() {
         return Objects.hash(previousHash, transactions);
+    }
+
+    public boolean verify() {
+        return calculateHash().equals(hashBlock);
     }
 }

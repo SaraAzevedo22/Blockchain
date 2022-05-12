@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 
 public class Config {
 
+    public static int difficulty = 5;
+
     //Calculate SHA256
     public static String calculateSHA256(String base) {
         try{

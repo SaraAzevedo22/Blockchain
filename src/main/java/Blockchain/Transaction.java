@@ -2,7 +2,7 @@ package Blockchain;
 import java.util.Date;
 import java.util.Objects;
 
-public class Transaction extends Config{
+public class Transaction {
 
     public String sourceName;
     public String destinationName;
