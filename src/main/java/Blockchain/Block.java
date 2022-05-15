@@ -16,10 +16,10 @@ public class Block {
 
     //Constructor to create the Block
     public Block(String hashId, String previousHash, List<Transaction> transactions) {
+        this.transactions = transactions;
         this.hashId = hashId;
         this.hashBlock = calculateHash();
         this.previousHash = previousHash;
-        this.transactions = transactions;
         this.nonce = nonce;
         this.timestamp = new Date().getTime();
 

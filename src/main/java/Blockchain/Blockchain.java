@@ -44,7 +44,7 @@ public class Blockchain {
     public List<Block> getChain(){return chain;}
 
     //Add blocks to the chain
-    public  boolean addBlock(Block newBlock) {
+    public boolean addBlock(Block newBlock) {
 
         if (!newBlock.verify()) {
             System.out.println("Error. The block couldn't be added because the hashes don't match.");
@@ -73,7 +73,7 @@ public class Blockchain {
     }
 
 
-    public boolean isValid() {
+    /*public boolean isValid() {
         Block previous, actual;
         String hashPrefix = new String(new char[Config.difficulty]).replace('\0','0');
 
@@ -112,8 +112,8 @@ public class Blockchain {
             verifyChain = "True";
         else
             verifyChain = "False";
-        System.out.println("\nChain valid:" + verifyChain);
-    }
+        System.out.println("Chain valid:" + verifyChain);
+    }*/
 
     public Block getLatestBlock() {
         return chain.get(chain.size() - 1);
