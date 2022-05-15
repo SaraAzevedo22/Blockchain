@@ -11,10 +11,12 @@ public class Transaction {
     public String hashBlock;
 
     //Constructor to create Transaction
-    public Transaction(String sourceName, String destinationName, Long sum) {
+    public Transaction(String hashBlock, String sourceName, String destinationName, long timestamp, Long sum) {
+        this.hashBlock = hashBlock;
         this.sourceName = sourceName;
         this.destinationName = destinationName;
-        this.sum = sum;
+        this.timestamp = timestamp;
+        this.sum = this.sum;
         transactionIsValid();
     }
 

@@ -10,12 +10,12 @@ public class Block {
     public String hashBlock;
     public String previousHash;
     // TODO Verify - List<Transaction> was changed to List<String>
-    public List<String> transactions;
+    public List<Transaction> transactions;
     public int nonce = 0;
     public long timestamp;
 
     //Constructor to create the Block
-    public Block(String hashId, String previousHash, List<String> transactions) {
+    public Block(String hashId, String previousHash, List<Transaction> transactions) {
         this.hashId = hashId;
         this.hashBlock = calculateHash();
         this.previousHash = previousHash;
@@ -86,4 +86,6 @@ public class Block {
     public boolean verify() {
         return calculateHash().equals(hashBlock);
     }
+
+    public List<Transaction> getTransaction() {return transactions;}
 }

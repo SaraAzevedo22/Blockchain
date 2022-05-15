@@ -4,18 +4,19 @@ import java.util.List;
 
 public class MerkleTree extends Config{
     String root; //Merkle Tree root
-    List<String> transactionsList; //List of Transactions
+    List<Transaction> transactionsList; //List of Transactions
 
-    public MerkleTree(List<String> transactionsList) {
+    public MerkleTree(List<Transaction> transactionsList) {
         this.transactionsList = transactionsList;
         root = "";
     }
 
     public void merkle_tree() {
-        List<String> tempTransactionsList = new ArrayList<String>();
+        List<String> tempTransactionsList = new ArrayList<>();
 
         for(int i = 0;i < this.transactionsList.size(); i++) {
-            tempTransactionsList.add(this.transactionsList.get(i));
+            Transaction t = this.transactionsList.get(i);
+            tempTransactionsList.add(t.calculateHash());
         }
 
         List<String> newTransactionsList = getTransactionsList(tempTransactionsList);
@@ -27,13 +28,13 @@ public class MerkleTree extends Config{
     }
 
     private List<String> getTransactionsList(List<String> tempTransactionsList) {
-        List<String> finalList = new ArrayList<String>();
+        List<String> finalList = new ArrayList<>();
         int i = 0;
         while(i < tempTransactionsList.size()) {
             String left = tempTransactionsList.get(i);
             i++;
 
-            String right = "";
+            String right = null;
             if(i != tempTransactionsList.size()) {
                 right = tempTransactionsList.get(i);
             }
