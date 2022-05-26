@@ -7,6 +7,8 @@ public class KademliaBucket {
     TreeSet<Contact> contacts; //Contacts stored in routing table
     TreeSet<Contact> lastSeenContacts;
 
+    final int BUCKET_SIZE = 20;
+
 
     public KademliaBucket(int depth) {
         this.depth = depth;
@@ -14,7 +16,11 @@ public class KademliaBucket {
 
      public void insertContact(Contact contact) {
         if(!(this.contacts.contains(contact))) {
+            if(this.contacts.size() >= BUCKET_SIZE) {
+                for(Contact temp : this.contacts) {
 
+                }
+            }
         }
         /**
          * The contact is already in the bucket, so we update that we've seen it
@@ -30,6 +36,13 @@ public class KademliaBucket {
 
     public void removeContact(Contact contact) {
 
+    }
+
+    public Contact getContact(Node no) {
+        for(Contact contact : this.contacts) {
+            if(contact.getNode().equals(no)) return contact;
+        }
+        return null;
     }
 
     public Contact removeFromContacts(Node no) {
