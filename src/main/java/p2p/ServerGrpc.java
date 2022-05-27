@@ -10,17 +10,21 @@ public class ServerGrpc{
     public void start() throws IOException {
         server = ServerBuilder.forPort(50051).build();
         server.start();
-    }
-
-    private void stop() throws InterruptedException {
 
         Runtime.getRuntime().addShutdownHook(new Thread(()-> {
             try {
-                server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+                ClientGRPC.this.stop();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }));
+    }
+
+    private void stop() throws InterruptedException {
+        if(server != null)
+            server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+
     }
 
 }
