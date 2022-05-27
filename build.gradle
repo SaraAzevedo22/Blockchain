@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'com.google.protobuf' version '0.8.17'
+    id 'idea'
 }
 
 group 'org.example'
@@ -9,9 +11,37 @@ repositories {
     mavenCentral()
 }
 
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.17.2"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.42.1'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'io.grpc:grpc-netty-shaded:1.46.0'
+    implementation 'io.grpc:grpc-protobuf:1.46.0'
+    implementation 'io.grpc:grpc-stub:1.46.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+sourceSets.main.java.srcDir new File(buildDir, 'generated/source')
+idea {
+    module {
+        generatedSourceDirs += file('build/generated/source')
+    }
 }
 
 test {

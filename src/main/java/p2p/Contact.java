@@ -22,10 +22,6 @@ public class Contact {
         return this.lastSeen;
     }
 
-    public void setContactSeen() {
-        this.lastSeen = currentTimeMillis()/1000L;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
