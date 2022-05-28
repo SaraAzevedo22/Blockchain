@@ -25,6 +25,6 @@ public class ClientGRPC {
     }
 
     private void shutdown() throws InterruptedException {
-        channel.shutdown();
+        channel.shutdown().awaitTermination(4, TimeUnit.SECONDS);
     }
 }

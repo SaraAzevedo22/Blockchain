@@ -5,6 +5,29 @@ package test;
 option java_package = "com.proto.test";
 option java_multiple_files = true;
 
-message TestMessage {}
+service P2P {
+    rpc ping(PingID) returns (Ping);
+
+}
+
+message PingID {
+
+}
+
+message Ping {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 service TestService {}
