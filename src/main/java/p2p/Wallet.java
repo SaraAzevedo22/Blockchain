@@ -6,6 +6,8 @@ import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.Base64.Encoder;
+
 
 public class Wallet {
     private String privateKey;
@@ -25,8 +27,8 @@ public class Wallet {
             PublicKey pubKey = kp.getPublic();
             byte[] encodedPrivateKey = privKey.getEncoded();
             byte[] encodedPublicKey = pubKey.getEncoded();
-            //this.privateKey= new String(Base64.encode(encodedPrivateKey));
-            //this.publicKey= new String(Base64.encode(encodedPublicKey));
+            this.privateKey = Base64.getEncoder().encodeToString(encodedPrivateKey);
+            this.publicKey = Base64.getEncoder().encodeToString(encodedPublicKey);
 
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown : " + e);
@@ -49,5 +51,20 @@ public class Wallet {
         return new byte[][]{messageBytes,digitalSignature};
     }
 
+    public boolean verifySignature(String pubKeyReceived, byte[] messageBytes, byte[] receivedSignature) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+        Signature signature = Signature.getInstance("RSA");
+
+        byte[] data = pubKeyReceived.getBytes();
+        KeyFactory fact = KeyFactory.getInstance("RSA");
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
+        PublicKey publicKeyReceived = fact.generatePublic(spec);
+
+        signature.initVerify(publicKeyReceived);
+        signature.update(messageBytes);
+
+        boolean isCorrect = signature.verify(receivedSignature);
+
+        return isCorrect;
+    }
 
 }
