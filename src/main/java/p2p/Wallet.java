@@ -6,7 +6,6 @@ import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import java.util.Base64.Encoder;
 
 
 public class Wallet {
@@ -65,6 +64,14 @@ public class Wallet {
         boolean isCorrect = signature.verify(receivedSignature);
 
         return isCorrect;
+    }
+
+    private String getPrivateKey() {
+        return privateKey;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
     }
 
 }

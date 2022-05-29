@@ -1,5 +1,11 @@
 package Blockchain;
 
+import p2p.Wallet;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +19,32 @@ public class Blockchain {
         this.waitingTransactions = waitingTransactions;
     }
 
+    // TODO call Wallet file
+    public Blockchain(Wallet wallet) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
+        genesisBlock(wallet);
+    }
+
+    // TODO call Wallet file
+    public Transaction addTransaction(int amount, Wallet send, Wallet received) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
+        Transaction newt = new Transaction(amount, send.getPublicKey(), received.getPublicKey());
+        newt.signTransaction(send);
+        waitingTransactions.add(newt);
+        return newt;
+    }
+
+    // TODO call Wallet file
+    public void genesisBlock(Wallet wallet) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
+        Wallet temp = new Wallet();
+        this.addTransaction(100, temp, wallet);
+
+    }
+
     //Add waiting new pending transactions to the waiting transactions list
     public void addToWaitingTransactions(List<Transaction> pendingTransactions){
         int temp=0;
         while(temp< pendingTransactions.size()){
             Transaction actualTransaction = pendingTransactions.get(temp);
-            waitingTransactions.add(new Transaction(actualTransaction.hashBlock, actualTransaction.sourceName, actualTransaction.destinationName, actualTransaction.timestamp, actualTransaction.sum));
+            waitingTransactions.add(new Transaction(actualTransaction.hashBlock, actualTransaction.sourceName, actualTransaction.destinationName, actualTransaction.timestamp, actualTransaction.sum, actualTransaction.signature));
             temp++;
         }
     }
@@ -34,9 +60,9 @@ public class Blockchain {
             Block actualBlock = oldChain.get(i);
             List<Transaction> newTransactionList = new ArrayList<>();
             for(Transaction oldTransaction : actualBlock.getTransaction()) {
-                newTransactionList.add(new Transaction(oldTransaction.hashBlock, oldTransaction.sourceName, oldTransaction.destinationName, oldTransaction.timestamp, oldTransaction.sum));
+                newTransactionList.add(new Transaction(oldTransaction.hashBlock, oldTransaction.sourceName, oldTransaction.destinationName, oldTransaction.timestamp, oldTransaction.sum, oldTransaction.signature));
             }
-            chain.add(new Block(actualBlock.hashId, actualBlock.previousHash, actualBlock.transactions));
+            chain.add(new Block(actualBlock.hashId, actualBlock.hashBlock, actualBlock.previousHash, actualBlock.transactions, actualBlock.nonce, actualBlock.timestamp, actualBlock.publicKey));
         }
     }
 

@@ -1,4 +1,7 @@
 package Blockchain;
+
+import p2p.Wallet;
+
 import java.lang.String;
 import java.util.Date;
 import java.util.List;
@@ -13,18 +16,33 @@ public class Block {
     public List<Transaction> transactions;
     public int nonce = 0;
     public long timestamp;
+    // TODO call Wallet file
+    public String publicKey;
 
-    //Constructor to create the Block
-    public Block(String hashId, String previousHash, List<Transaction> transactions) {
+    //Constructor to create the Block // TODO call Wallet file
+    public Block(String hashId, String previousHash, List<Transaction> transactions, Wallet minePublicKey) {
         this.transactions = transactions;
         this.hashId = hashId;
         this.hashBlock = calculateHash();
         this.previousHash = previousHash;
         this.nonce = nonce;
         this.timestamp = new Date().getTime();
+        // TODO call Wallet file
+        this.publicKey = minePublicKey.getPublicKey();
 
         //Object[] content = {Arrays.hashCode(transactions), previousHash};
         //this.blockHash = Arrays.hashCode(content);
+    }
+
+    // TODO call Wallet file
+    public Block(String hashId, String hashBlock, String previousHash, List<Transaction> transactions, int nonce, long timestamp, String minePublicKey) {
+        this.transactions = transactions;
+        this.hashId = hashId;
+        this.hashBlock = hashBlock;
+        this.previousHash = previousHash;
+        this.nonce = nonce;
+        this.timestamp = timestamp;
+        this.publicKey = minePublicKey;
     }
 
     //Calculate actual hash

@@ -1,4 +1,10 @@
 package Blockchain;
+import p2p.Wallet;
+
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 import java.util.Objects;
 
@@ -6,17 +12,30 @@ public class Transaction {
 
     public String sourceName;
     public String destinationName;
-    public Long sum;
+    public int sum;
     public long timestamp;
     public String hashBlock;
+    // TODO call Wallet file
+    public byte[] signature;
+
 
     //Constructor to create Transaction
-    public Transaction(String hashBlock, String sourceName, String destinationName, long timestamp, Long sum) {
+    public Transaction(String hashBlock, String sourceName, String destinationName, long timestamp, int sum, byte[] signature) {
         this.hashBlock = hashBlock;
         this.sourceName = sourceName;
         this.destinationName = destinationName;
         this.timestamp = timestamp;
         this.sum = this.sum;
+        // TODO call Wallet file
+        //transactionIsValid();
+        this.signature = signature;
+    }
+
+    // TODO call Wallet file
+    public Transaction(int sum, String sourceName, String destinationName) {
+        this.sum = sum;
+        this.sourceName = sourceName;
+        this.destinationName = destinationName;
         transactionIsValid();
     }
 
@@ -27,6 +46,16 @@ public class Transaction {
 
     public String calculateHash(){
         return Config.calculateSHA256(this.sourceName + this.destinationName + this.timestamp + this.sum);
+    }
+
+    // TODO call Wallet file
+    public boolean signTransaction(Wallet sign) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
+        if(!this.hashBlock.equals(this.calculateHash())) {
+            System.out.println("Error: the transaction was tampered!");
+            return false;
+        }
+        this.signature = sign.signMessage(hashBlock)[1];
+        return true;
     }
 
 /*
