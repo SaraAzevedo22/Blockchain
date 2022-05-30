@@ -7,6 +7,7 @@ import static java.lang.System.currentTimeMillis;
 public class Contact {
     Node node;
     long lastSeen;
+    int unavblCount; //Number of times the node is unavailable
 
 
     public Contact(Node node) {
@@ -19,7 +20,19 @@ public class Contact {
     }
 
     public long getLastSeen() {
-        return this.lastSeen;
+        return lastSeen;
+    }
+
+    public void setContactSeen() {
+        this.lastSeen = currentTimeMillis()/1000L;
+    }
+
+    public int getUnavblCount() {
+        return unavblCount;
+    }
+
+    public void setUnavblCountToZero() {
+        this.unavblCount = 0;
     }
 
     @Override
