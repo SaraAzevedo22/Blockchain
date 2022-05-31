@@ -35,6 +35,12 @@ public class Contact {
         this.unavblCount = 0;
     }
 
+    /*
+    public void incrementUnavblCount() {
+        this.unavblCount++;
+    }
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

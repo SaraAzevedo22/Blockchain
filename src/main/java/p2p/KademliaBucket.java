@@ -6,12 +6,13 @@ public class KademliaBucket {
     int depth;
     TreeSet<Contact> contacts; //Contacts stored in routing table
     TreeSet<Contact> backupContacts;
-
     final int BUCKET_SIZE = 20;
 
 
     public KademliaBucket(int depth) {
         this.depth = depth;
+        contacts = new TreeSet<>();
+        backupContacts = new TreeSet<>();
     }
 
      public void insertContact(Contact contact) {
@@ -24,7 +25,7 @@ public class KademliaBucket {
                 //We check if any contacts are unavailable
                 for (Contact temp : this.contacts) {
                     // 1 means that the contact was unavailable at least one time
-                    if (temp.getUnavblCount() > 1) {
+                    if (temp.getUnavblCount() >= 1) {
                         if (temp.getUnavblCount() > useless.getUnavblCount()) {
                             useless = temp;
                         }
@@ -52,26 +53,6 @@ public class KademliaBucket {
         }
     }
 
-    public void removeContact(Contact contact) {
-
-    }
-
-    public Contact getContact(Node no) {
-        for(Contact contact : this.contacts) {
-            if(contact.getNode().equals(no)) return contact;
-        }
-        return null;
-    }
-
-    public Contact removeFromContacts(Node no) {
-        for(Contact contact : this.contacts) {
-            if(contact.getNode().equals(no)) {
-                this.contacts.remove(contact);
-                return contact;
-            }
-        }
-        return null;
-    }
 
     public void insertInBackupContacts(Contact contact) {
         if(this.backupContacts.size() > BUCKET_SIZE) {
@@ -98,6 +79,20 @@ public class KademliaBucket {
         return null;
     }
 
+    public Contact removeFromContacts(Node no) {
+        for (Contact contact : this.contacts) {
+            if (contact.getNode().equals(no)) {
+                this.contacts.remove(contact);
+                return contact;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Getters and Setters
+     */
     public int getDepth() {
         return depth;
     }
@@ -105,4 +100,35 @@ public class KademliaBucket {
     public void setDepth(int depth) {
         this.depth = depth;
     }
+
+    public TreeSet<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(TreeSet<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public TreeSet<Contact> getBackupContacts() {
+        return backupContacts;
+    }
+
+    public void setBackupContacts(TreeSet<Contact> backupContacts) {
+        this.backupContacts = backupContacts;
+    }
+
+    public int getBUCKET_SIZE() {
+        return BUCKET_SIZE;
+    }
+
+    @Override
+    public String toString() {
+        return "KademliaBucket{" +
+                "depth=" + depth +
+                ", contacts=" + contacts +
+                ", backupContacts=" + backupContacts +
+                ", BUCKET_SIZE=" + BUCKET_SIZE +
+                '}';
+    }
+
 }

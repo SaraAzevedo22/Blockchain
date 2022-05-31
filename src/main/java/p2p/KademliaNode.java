@@ -5,4 +5,6 @@ public class KademliaNode {
     KademliaBucket[] buckets;
     //Storage
 
+
+
 }
