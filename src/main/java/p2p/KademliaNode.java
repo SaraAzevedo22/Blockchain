@@ -11,7 +11,6 @@ public class KademliaNode {
         this.storage = storage;
     }
 
-    
 
     public Node getNode() {
         return node;

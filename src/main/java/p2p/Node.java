@@ -7,8 +7,8 @@ public class Node {
     String ipAddress;
     int portNo;
 
-    public Node(String id, String ipAddress, int portNo) {
-        this.guid = id;
+    public Node(String guid, String ipAddress, int portNo) {
+        this.guid = guid;
         this.ipAddress = ipAddress;
         this.portNo = portNo;
     }
