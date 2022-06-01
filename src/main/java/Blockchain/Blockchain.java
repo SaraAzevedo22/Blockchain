@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blockchain {
-    public List<Block> chain = new ArrayList<>();  // TODO <Block> ??
+    public static List<Block> chain = new ArrayList<>();  // TODO <Block> ??
     public List<Transaction> waitingTransactions = new ArrayList<>();  // TODO <> ??
 
     //Constructor
@@ -67,7 +67,7 @@ public class Blockchain {
     }
 
     //Get the chain
-    public List<Block> getChain(){return chain;}
+    public static List<Block> getChain(){return chain;}
 
     //Add blocks to the chain
     public boolean addBlock(Block newBlock) {
@@ -91,7 +91,7 @@ public class Blockchain {
         }
 
         waitingTransactions.subList(0, transactionSize).clear();
-        newBlock.previousHash = this.getLatestBlock().hashBlock;
+        newBlock.previousHash = this.getLastBlock().hashBlock;
 
         chain.add(newBlock);
         System.out.println("Block added SUCCESSFULLY.");
@@ -141,7 +141,7 @@ public class Blockchain {
         System.out.println("Chain valid:" + verifyChain);
     }*/
 
-    public Block getLatestBlock() {
+    public Block getLastBlock() {
         return chain.get(chain.size() - 1);
     }
 }

@@ -5,7 +5,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,6 +16,8 @@ public class Transaction {
     public long timestamp;
     public String hashBlock;
     // TODO call Wallet file
+    // TODO call Wallet file
+    // TODO call Wallet file
     public byte[] signature;
 
 
@@ -26,9 +27,9 @@ public class Transaction {
         this.sourceName = sourceName;
         this.destinationName = destinationName;
         this.timestamp = timestamp;
-        this.sum = sum;
+        this.sum = this.sum;
         // TODO call Wallet file
-        //transactionIsValid();
+        transactionIsValid();
         this.signature = signature;
     }
 
@@ -85,6 +86,7 @@ public class Transaction {
         this.sum = sum;
     }
 */
+    //Equals and Hash Code
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,17 +98,5 @@ public class Transaction {
     @Override
     public int hashCode() {
         return Objects.hash(sourceName, destinationName, sum);
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "sourceName='" + sourceName + '\'' +
-                ", destinationName='" + destinationName + '\'' +
-                ", sum=" + sum +
-                ", timestamp=" + timestamp +
-                ", hashBlock='" + hashBlock + '\'' +
-                ", signature=" + Arrays.toString(signature) +
-                '}';
     }
 }

@@ -1,17 +1,23 @@
 package p2p;
 
+import Blockchain.Block;
+import Blockchain.Blockchain;
 import Blockchain.Config;
-
+import Blockchain.Transaction;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.Hashtable;
 
 
 public class Wallet {
     private String privateKey;
     private String publicKey;
     private String id;
+    int amountTransfered = 0;
+    Hashtable<String, Integer> users = new Hashtable<>();
+
 
     public Wallet() {
         generateKeyPair();
@@ -74,4 +80,47 @@ public class Wallet {
         return publicKey;
     }
 
+    /*public void Ledger() {
+        users.put(User.publicKey, amountTransfered);
+    }*/
+
+    public Integer returnBalance(String publicKey) {
+        return users.get(publicKey);
+    }
+
+    public void reloadLedger() {
+        users.clear();
+        users.put(User.publicKey, amountTransfered);
+        for(int i=0; i < Blockchain.chain.size(); i++){
+            Block block = Blockchain.chain.get(i);
+            upgradeLedger(block);
+        }
+    }
+
+    public void upgradeLedger(Block block){
+        for(int i=0; i < block.transactions.size(); i++) {
+            Transaction transaction = block.transactions.get(i);
+            int amountSent, amountReceived;
+
+            if(users.get(transaction.sourceName) != null) {
+                amountSent = users.get(transaction.sourceName);
+            }
+            else {
+                amountSent = amountTransfered;
+            }
+            if(users.get(transaction.destinationName) != null) {
+                amountReceived = users.get(transaction.destinationName);
+            }
+            else {
+                amountReceived = amountTransfered;
+            }
+            users.put(transaction.sourceName, (amountSent - transaction.sum));
+            users.put(transaction.destinationName, (amountReceived - transaction.sum));
+        }
+       /* if(users.get(block.publicKey) != null) {
+            users.put(block.publicKey, users.get(block.publicKey)+1);
+        } else {
+            users.put(block.publicKey, amountTransfered + Config.MINING_REWARD);
+        }*/
+    }
 }

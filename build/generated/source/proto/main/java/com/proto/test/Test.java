@@ -15,10 +15,15 @@ public final class Test {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_test_TestMessage_descriptor;
+    internal_static_test_PingID_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_test_TestMessage_fieldAccessorTable;
+      internal_static_test_PingID_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_test_Ping_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_test_Ping_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -28,19 +33,26 @@ public final class Test {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017test/test.proto\022\004test\"\r\n\013TestMessage2\r" +
-      "\n\013TestServiceB\022\n\016com.proto.testP\001b\006proto" +
-      "3"
+      "\n\017test/test.proto\022\004test\"\010\n\006PingID\"\006\n\004Pin" +
+      "g2\'\n\003P2P\022 \n\004ping\022\014.test.PingID\032\n.test.Pi" +
+      "ng2\r\n\013TestServiceB\022\n\016com.proto.testP\001b\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_test_TestMessage_descriptor =
+    internal_static_test_PingID_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_test_TestMessage_fieldAccessorTable = new
+    internal_static_test_PingID_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_test_TestMessage_descriptor,
+        internal_static_test_PingID_descriptor,
+        new java.lang.String[] { });
+    internal_static_test_Ping_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_test_Ping_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_test_Ping_descriptor,
         new java.lang.String[] { });
   }
 

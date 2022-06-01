@@ -23,7 +23,7 @@ public class Main {
 
 
         // b4ad42740f74141d5dc4472608c9f8aebff7fcb7694da2edbf4241f292ba5549 sara
-
+/*
         List<Block> blockchain = new ArrayList<>();
 
 
@@ -51,7 +51,7 @@ public class Main {
 
         //blockchain.printChain();
         System.out.println(blockchain);
-
+*/
     }
 
 }
