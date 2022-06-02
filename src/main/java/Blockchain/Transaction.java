@@ -27,7 +27,7 @@ public class Transaction {
         this.sourceName = sourceName;
         this.destinationName = destinationName;
         this.timestamp = timestamp;
-        this.sum = this.sum;
+        this.sum = sum;
         // TODO call Wallet file
         transactionIsValid();
         this.signature = signature;
