@@ -6,16 +6,19 @@ option java_package = "com.proto.test";
 option java_multiple_files = true;
 
 service P2P {
-    rpc ping(PingID) returns (Ping);
-
-}
-
-message PingID {
+    rpc ping(Ping) returns (PingResponse);
 
 }
 
 message Ping {
+    String guid = 1;
+    String ipAddress = 2;
+    int32 portNo = 3;
+    
+}
 
+message PingResponse {
+    bool responseMessage = 1;
 }
 
 
