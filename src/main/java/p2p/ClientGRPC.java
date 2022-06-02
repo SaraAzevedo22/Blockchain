@@ -27,4 +27,8 @@ public class ClientGRPC {
     private void shutdown() throws InterruptedException {
         channel.shutdown().awaitTermination(4, TimeUnit.SECONDS);
     }
+
+    // On the client side, the client has a stub (referred to as just a client in some languages) that provides the same methods as the server.
+
+
 }
