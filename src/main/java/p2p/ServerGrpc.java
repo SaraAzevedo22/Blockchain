@@ -42,8 +42,8 @@ public class ServerGrpc{
 
     }
 
-
-    class PeerService extends  P2PGrpc.PeerServiceBase {
+    // private class GreeterImpl extends GreeterGrpc.GreeterImplBase
+    class PeerService extends  P2PGrpc.P2PImplBase {
         public void ping(Ping request, StreamObserver<PingResponse> responseObserver) {
 
             responseObserver.onNext();

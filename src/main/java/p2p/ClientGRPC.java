@@ -33,17 +33,13 @@ public class ClientGRPC {
 
 
     public boolean ping() {
-        try{
-            Ping request = Ping.newBuilder()
-                    .setId(User.id)
-                    .setIp(User.ipAddress)
-                    .setPort(User.portNo)
-                    .setPubKey(User.publicKey)
-                    .build();
-            PingResponse response = blockingStub.ping(request);
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
+        Ping request = Ping.newBuilder()
+                .setId(User.id)
+                .setIpAddress(User.ipAddress)
+                .setPortNo(User.portNo)
+                .setPublicKey(User.publicKey)
+                .build();
+        PingResponse response = blockingStub.ping(request);
         return false;
     }
 
