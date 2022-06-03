@@ -24,6 +24,11 @@ public class Blockchain {
         genesisBlock(wallet);
     }
 
+    public Blockchain() {
+        this.chain = new ArrayList<>();
+        this.waitingTransactions = new ArrayList<>();
+    }
+
     // TODO call Wallet file
     public Transaction addTransaction(int amount, Wallet send, Wallet received) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
         Transaction newt = new Transaction(amount, send.getPublicKey(), received.getPublicKey());
