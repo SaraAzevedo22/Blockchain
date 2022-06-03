@@ -1,12 +1,14 @@
 package p2p;
 import com.proto.test.Ping;
 import com.proto.test.TestServiceGrpc;
+import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class ServerGrpc{
 
@@ -42,10 +44,11 @@ public class ServerGrpc{
 
     }
 
-    class PeerService extends PeerGrpc.PeerImplBase {
+
+    class PeerService extends TestServiceGrpc.PeerServiceBase {
         public void ping(Ping request, StreamObserver<PingResponse> responseObserver) {
 
-            responseObserver.onNext();
+            responseObserver.onNext(PingResponse);
 
             responseObserver.onCompleted();
         }

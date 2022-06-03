@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 public class KademliaBucket {
     int depth;
-    TreeSet<Contact> contacts; //Contacts stored in routing table
+    static TreeSet<Contact> contacts; //Contacts stored in routing table
     TreeSet<Contact> backupContacts;
     final int BUCKET_SIZE = 20;
 
@@ -91,9 +91,13 @@ public class KademliaBucket {
 
     public boolean containsNode(Node node) {
         if(this.contacts.contains(node)) {
-            if(node.guid.equals(User.id));
+            if(node.guid.equals(User.id)) return true;
         }
         return false;
+    }
+
+    public static TreeSet<Contact> getClonedTreeSet() {
+        return (TreeSet)contacts.clone();
     }
 
 

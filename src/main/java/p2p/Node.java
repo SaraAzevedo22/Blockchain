@@ -6,6 +6,7 @@ public class Node {
     String guid;
     String ipAddress;
     int portNo;
+    final int ID_LENGTH = 160;
 
     public Node(String guid, String ipAddress, int portNo) {
         this.guid = guid;
@@ -24,7 +25,6 @@ public class Node {
     public int getPortNo() {
         return this.portNo;
     }
-
 
 
     @Override
