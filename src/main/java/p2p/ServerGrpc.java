@@ -1,7 +1,5 @@
 package p2p;
-import com.proto.test.Ping;
-import com.proto.test.TestServiceGrpc;
-import io.grpc.Server;
+import com.proto.test.*;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
@@ -45,10 +43,10 @@ public class ServerGrpc{
     }
 
 
-    class PeerService extends TestServiceGrpc.PeerServiceBase {
+    class PeerService extends  P2PGrpc.PeerServiceBase {
         public void ping(Ping request, StreamObserver<PingResponse> responseObserver) {
 
-            responseObserver.onNext(PingResponse);
+            responseObserver.onNext();
 
             responseObserver.onCompleted();
         }

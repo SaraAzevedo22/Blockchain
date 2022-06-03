@@ -48,6 +48,8 @@ public class User {
     public static void trustness() {
         TreeSet<Contact> tempTree = KademliaBucket.getClonedTreeSet();
         for(Contact contact : tempTree) {
+            Blockchain tempBlockchain = null;
+
 
         }
     }
