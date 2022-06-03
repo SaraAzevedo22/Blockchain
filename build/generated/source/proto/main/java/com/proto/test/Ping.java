@@ -16,6 +16,9 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private Ping() {
+    id_ = "";
+    ipAddress_ = "";
+    publicKey_ = "";
   }
 
   @java.lang.Override
@@ -48,6 +51,29 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
+          case 10: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            id_ = s;
+            break;
+          }
+          case 18: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            ipAddress_ = s;
+            break;
+          }
+          case 24: {
+
+            portNo_ = input.readInt32();
+            break;
+          }
+          case 34: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            publicKey_ = s;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -80,6 +106,131 @@ private static final long serialVersionUID = 0L;
             com.proto.test.Ping.class, com.proto.test.Ping.Builder.class);
   }
 
+  public static final int ID_FIELD_NUMBER = 1;
+  private volatile java.lang.Object id_;
+  /**
+   * <code>string id = 1;</code>
+   * @return The id.
+   */
+  @java.lang.Override
+  public java.lang.String getId() {
+    java.lang.Object ref = id_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      id_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string id = 1;</code>
+   * @return The bytes for id.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getIdBytes() {
+    java.lang.Object ref = id_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      id_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int IPADDRESS_FIELD_NUMBER = 2;
+  private volatile java.lang.Object ipAddress_;
+  /**
+   * <code>string ipAddress = 2;</code>
+   * @return The ipAddress.
+   */
+  @java.lang.Override
+  public java.lang.String getIpAddress() {
+    java.lang.Object ref = ipAddress_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      ipAddress_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string ipAddress = 2;</code>
+   * @return The bytes for ipAddress.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getIpAddressBytes() {
+    java.lang.Object ref = ipAddress_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      ipAddress_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int PORTNO_FIELD_NUMBER = 3;
+  private int portNo_;
+  /**
+   * <code>int32 portNo = 3;</code>
+   * @return The portNo.
+   */
+  @java.lang.Override
+  public int getPortNo() {
+    return portNo_;
+  }
+
+  public static final int PUBLICKEY_FIELD_NUMBER = 4;
+  private volatile java.lang.Object publicKey_;
+  /**
+   * <code>string publicKey = 4;</code>
+   * @return The publicKey.
+   */
+  @java.lang.Override
+  public java.lang.String getPublicKey() {
+    java.lang.Object ref = publicKey_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      publicKey_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string publicKey = 4;</code>
+   * @return The bytes for publicKey.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getPublicKeyBytes() {
+    java.lang.Object ref = publicKey_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      publicKey_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -94,6 +245,18 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (!getIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+    }
+    if (!getIpAddressBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ipAddress_);
+    }
+    if (portNo_ != 0) {
+      output.writeInt32(3, portNo_);
+    }
+    if (!getPublicKeyBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, publicKey_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -103,6 +266,19 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (!getIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+    }
+    if (!getIpAddressBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ipAddress_);
+    }
+    if (portNo_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(3, portNo_);
+    }
+    if (!getPublicKeyBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, publicKey_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -118,6 +294,14 @@ private static final long serialVersionUID = 0L;
     }
     com.proto.test.Ping other = (com.proto.test.Ping) obj;
 
+    if (!getId()
+        .equals(other.getId())) return false;
+    if (!getIpAddress()
+        .equals(other.getIpAddress())) return false;
+    if (getPortNo()
+        != other.getPortNo()) return false;
+    if (!getPublicKey()
+        .equals(other.getPublicKey())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -129,6 +313,14 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + getId().hashCode();
+    hash = (37 * hash) + IPADDRESS_FIELD_NUMBER;
+    hash = (53 * hash) + getIpAddress().hashCode();
+    hash = (37 * hash) + PORTNO_FIELD_NUMBER;
+    hash = (53 * hash) + getPortNo();
+    hash = (37 * hash) + PUBLICKEY_FIELD_NUMBER;
+    hash = (53 * hash) + getPublicKey().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -262,6 +454,14 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
+      id_ = "";
+
+      ipAddress_ = "";
+
+      portNo_ = 0;
+
+      publicKey_ = "";
+
       return this;
     }
 
@@ -288,6 +488,10 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.proto.test.Ping buildPartial() {
       com.proto.test.Ping result = new com.proto.test.Ping(this);
+      result.id_ = id_;
+      result.ipAddress_ = ipAddress_;
+      result.portNo_ = portNo_;
+      result.publicKey_ = publicKey_;
       onBuilt();
       return result;
     }
@@ -336,6 +540,21 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.proto.test.Ping other) {
       if (other == com.proto.test.Ping.getDefaultInstance()) return this;
+      if (!other.getId().isEmpty()) {
+        id_ = other.id_;
+        onChanged();
+      }
+      if (!other.getIpAddress().isEmpty()) {
+        ipAddress_ = other.ipAddress_;
+        onChanged();
+      }
+      if (other.getPortNo() != 0) {
+        setPortNo(other.getPortNo());
+      }
+      if (!other.getPublicKey().isEmpty()) {
+        publicKey_ = other.publicKey_;
+        onChanged();
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -362,6 +581,265 @@ private static final long serialVersionUID = 0L;
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+
+    private java.lang.Object id_ = "";
+    /**
+     * <code>string id = 1;</code>
+     * @return The id.
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        id_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return The bytes for id.
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      id_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearId() {
+      
+      id_ = getDefaultInstance().getId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string id = 1;</code>
+     * @param value The bytes for id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      id_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object ipAddress_ = "";
+    /**
+     * <code>string ipAddress = 2;</code>
+     * @return The ipAddress.
+     */
+    public java.lang.String getIpAddress() {
+      java.lang.Object ref = ipAddress_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ipAddress_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string ipAddress = 2;</code>
+     * @return The bytes for ipAddress.
+     */
+    public com.google.protobuf.ByteString
+        getIpAddressBytes() {
+      java.lang.Object ref = ipAddress_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ipAddress_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string ipAddress = 2;</code>
+     * @param value The ipAddress to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIpAddress(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      ipAddress_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string ipAddress = 2;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearIpAddress() {
+      
+      ipAddress_ = getDefaultInstance().getIpAddress();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string ipAddress = 2;</code>
+     * @param value The bytes for ipAddress to set.
+     * @return This builder for chaining.
+     */
+    public Builder setIpAddressBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      ipAddress_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int portNo_ ;
+    /**
+     * <code>int32 portNo = 3;</code>
+     * @return The portNo.
+     */
+    @java.lang.Override
+    public int getPortNo() {
+      return portNo_;
+    }
+    /**
+     * <code>int32 portNo = 3;</code>
+     * @param value The portNo to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPortNo(int value) {
+      
+      portNo_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 portNo = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearPortNo() {
+      
+      portNo_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object publicKey_ = "";
+    /**
+     * <code>string publicKey = 4;</code>
+     * @return The publicKey.
+     */
+    public java.lang.String getPublicKey() {
+      java.lang.Object ref = publicKey_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        publicKey_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string publicKey = 4;</code>
+     * @return The bytes for publicKey.
+     */
+    public com.google.protobuf.ByteString
+        getPublicKeyBytes() {
+      java.lang.Object ref = publicKey_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        publicKey_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string publicKey = 4;</code>
+     * @param value The publicKey to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPublicKey(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      publicKey_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string publicKey = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearPublicKey() {
+      
+      publicKey_ = getDefaultInstance().getPublicKey();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string publicKey = 4;</code>
+     * @param value The bytes for publicKey to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPublicKeyBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      publicKey_ = value;
+      onChanged();
       return this;
     }
     @java.lang.Override

@@ -15,29 +15,29 @@ public final class P2PGrpc {
   public static final String SERVICE_NAME = "test.P2P";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.proto.test.PingID,
-      com.proto.test.Ping> getPingMethod;
+  private static volatile io.grpc.MethodDescriptor<com.proto.test.Ping,
+      com.proto.test.PingResponse> getPingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ping",
-      requestType = com.proto.test.PingID.class,
-      responseType = com.proto.test.Ping.class,
+      requestType = com.proto.test.Ping.class,
+      responseType = com.proto.test.PingResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.proto.test.PingID,
-      com.proto.test.Ping> getPingMethod() {
-    io.grpc.MethodDescriptor<com.proto.test.PingID, com.proto.test.Ping> getPingMethod;
+  public static io.grpc.MethodDescriptor<com.proto.test.Ping,
+      com.proto.test.PingResponse> getPingMethod() {
+    io.grpc.MethodDescriptor<com.proto.test.Ping, com.proto.test.PingResponse> getPingMethod;
     if ((getPingMethod = P2PGrpc.getPingMethod) == null) {
       synchronized (P2PGrpc.class) {
         if ((getPingMethod = P2PGrpc.getPingMethod) == null) {
           P2PGrpc.getPingMethod = getPingMethod =
-              io.grpc.MethodDescriptor.<com.proto.test.PingID, com.proto.test.Ping>newBuilder()
+              io.grpc.MethodDescriptor.<com.proto.test.Ping, com.proto.test.PingResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ping"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.proto.test.PingID.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.proto.test.Ping.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.test.PingResponse.getDefaultInstance()))
               .setSchemaDescriptor(new P2PMethodDescriptorSupplier("ping"))
               .build();
         }
@@ -96,8 +96,8 @@ public final class P2PGrpc {
 
     /**
      */
-    public void ping(com.proto.test.PingID request,
-        io.grpc.stub.StreamObserver<com.proto.test.Ping> responseObserver) {
+    public void ping(com.proto.test.Ping request,
+        io.grpc.stub.StreamObserver<com.proto.test.PingResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPingMethod(), responseObserver);
     }
 
@@ -107,8 +107,8 @@ public final class P2PGrpc {
             getPingMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                com.proto.test.PingID,
-                com.proto.test.Ping>(
+                com.proto.test.Ping,
+                com.proto.test.PingResponse>(
                   this, METHODID_PING)))
           .build();
     }
@@ -130,8 +130,8 @@ public final class P2PGrpc {
 
     /**
      */
-    public void ping(com.proto.test.PingID request,
-        io.grpc.stub.StreamObserver<com.proto.test.Ping> responseObserver) {
+    public void ping(com.proto.test.Ping request,
+        io.grpc.stub.StreamObserver<com.proto.test.PingResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getPingMethod(), getCallOptions()), request, responseObserver);
     }
@@ -153,7 +153,7 @@ public final class P2PGrpc {
 
     /**
      */
-    public com.proto.test.Ping ping(com.proto.test.PingID request) {
+    public com.proto.test.PingResponse ping(com.proto.test.Ping request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getPingMethod(), getCallOptions(), request);
     }
@@ -175,8 +175,8 @@ public final class P2PGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.proto.test.Ping> ping(
-        com.proto.test.PingID request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.proto.test.PingResponse> ping(
+        com.proto.test.Ping request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getPingMethod(), getCallOptions()), request);
     }
@@ -202,8 +202,8 @@ public final class P2PGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_PING:
-          serviceImpl.ping((com.proto.test.PingID) request,
-              (io.grpc.stub.StreamObserver<com.proto.test.Ping>) responseObserver);
+          serviceImpl.ping((com.proto.test.Ping) request,
+              (io.grpc.stub.StreamObserver<com.proto.test.PingResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
