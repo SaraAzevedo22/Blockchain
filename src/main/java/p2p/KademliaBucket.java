@@ -89,6 +89,13 @@ public class KademliaBucket {
         return null;
     }
 
+    public boolean containsNode(Node node) {
+        if(this.contacts.contains(node)) {
+            if(node.guid.equals(User.id));
+        }
+        return false;
+    }
+
 
     /**
      * Getters and Setters
