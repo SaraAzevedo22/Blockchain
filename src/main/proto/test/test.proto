@@ -12,11 +12,10 @@ service P2P {
 }
 
 message Ping {
-    String id = 1;
-    String ipAddress = 2;
+    string id = 1;
+    string ipAddress = 2;
     int32 portNo = 3;
-    String publicKey = 4;
-    
+    string publicKey = 4;
 }
 
 message PingResponse {
