@@ -5,6 +5,9 @@ import java.security.MessageDigest;
 public class Config {
 
     public static int difficulty = 5;
+    public static int reward = 1;
+    public static final double min_reputation = 0.7;
+    final int ID_LENGTH = 160;
 
     //Calculate SHA256
     public static String calculateSHA256(String base) {

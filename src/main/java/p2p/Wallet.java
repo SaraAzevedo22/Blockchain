@@ -4,11 +4,14 @@ import Blockchain.Block;
 import Blockchain.Blockchain;
 import Blockchain.Config;
 import Blockchain.Transaction;
+
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 import java.util.Hashtable;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.encoders.Base64;
 
 
 public class Wallet {
@@ -17,6 +20,8 @@ public class Wallet {
     private String id;
     int amountTransfered = 0;
     Hashtable<String, Integer> users = new Hashtable<>();
+
+    static { Security.addProvider(new BouncyCastleProvider());  }
 
 
     public Wallet() {
@@ -32,8 +37,8 @@ public class Wallet {
             PublicKey pubKey = kp.getPublic();
             byte[] encodedPrivateKey = privKey.getEncoded();
             byte[] encodedPublicKey = pubKey.getEncoded();
-            this.privateKey = Base64.getEncoder().encodeToString(encodedPrivateKey);
-            this.publicKey = Base64.getEncoder().encodeToString(encodedPublicKey);
+            this.privateKey = new String (Base64.encode(encodedPrivateKey));
+            this.publicKey = new String (Base64.encode(encodedPublicKey));
 
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown : " + e);
@@ -43,7 +48,7 @@ public class Wallet {
     public byte[][] signMessage(String message) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
         Signature signature = Signature.getInstance("RSA");
 
-        byte[] data = Base64.getDecoder().decode((privateKey.getBytes()));
+        byte[] data = Base64.decode((privateKey.getBytes(StandardCharsets.UTF_8)));
         X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
         KeyFactory fact = KeyFactory.getInstance("RSA");
         signature.initSign(fact.generatePrivate(spec));
@@ -80,9 +85,9 @@ public class Wallet {
         return publicKey;
     }
 
-    /*public void Ledger() {
+    public void Ledger() {
         users.put(User.publicKey, amountTransfered);
-    }*/
+    }
 
     public double returnBalance() {
         return users.get(this.publicKey);
@@ -122,10 +127,10 @@ public class Wallet {
             users.put(transaction.sourceName, (amountSent - transaction.sum));
             users.put(transaction.destinationName, (amountReceived - transaction.sum));
         }
-       /* if(users.get(block.publicKey) != null) {
+        if(users.get(block.publicKey) != null) {
             users.put(block.publicKey, users.get(block.publicKey)+1);
         } else {
-            users.put(block.publicKey, amountTransfered + Config.MINING_REWARD);
-        }*/
+            users.put(block.publicKey, amountTransfered + Config.reward);
+        }
     }
 }

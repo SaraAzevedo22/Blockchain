@@ -23,6 +23,10 @@ public class KademliaBucket {
         lastSeenNodes = new ArrayList<>();
     }
 
+    public void removeNode(Node node) {
+        lastSeenNodes.remove(node);
+    }
+
      public void insertContact(Contact contact) {
         // The contact is not in the tree
         if(!(this.contacts.contains(contact))) {
@@ -135,7 +139,7 @@ public class KademliaBucket {
         return false;
     }
 
-    public ArrayList<Node> getNeighbours(ArrayList<Node> nodesList, String a) {
+   /* public ArrayList<Node> getNeighbours(ArrayList<Node> nodesList, String a) {
         ArrayList<Node> finalList = (ArrayList<Node>)nodesList.clone();
 
         finalList.sort((node1,node2) -> {
@@ -143,8 +147,8 @@ public class KademliaBucket {
             String xor2 = Kademlia.xorDist(node2.guid, )
         });
 
-        return finalList
-    }
+        return finalList;
+    }*/
 
     /**
      * Getters and Setters

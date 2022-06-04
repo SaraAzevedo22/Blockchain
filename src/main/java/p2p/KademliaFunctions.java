@@ -9,6 +9,6 @@ public class KademliaFunctions {
     TODO PING,STORE, FIND_NODE, FIND_VALUE
      */
     public boolean ping(Node node) {
-
+       return true;
     }
 }

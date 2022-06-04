@@ -4,6 +4,7 @@ package p2p;
 import Blockchain.Blockchain;
 import Blockchain.Config;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +17,7 @@ public class User {
     public static Wallet wallet = new Wallet();
     public static int nonce = 0;
     static final int DEPTH = 20;
+    public static ArrayList<Node> trashlist = new ArrayList<>();
     public static KademliaBucket kadBucket = new KademliaBucket();
     public static StayinAliveThread stayinAliveThread= new StayinAliveThread();
 
@@ -60,6 +62,31 @@ public class User {
         }
     }
 
+
+    public static void verifyNodesIntegrity(Node node) {
+        double integrity = -1;
+        if(node.sumInteractions >= 1)
+            integrity = node.successInteractions / node.sumInteractions;
+        if(integrity < Config.min_reputation)
+            User.TrashNodes(node);
+    }
+
+    public static void TrashNodes(Node node) {
+        kadBucket.removeNode(node);
+        addNodesToTrash(node);
+    }
+
+    public static void addNodesToTrash(Node node) {
+        trashlist.add(node);
+    }
+
+    public static ArrayList<Node> getTrashlist() {
+        return trashlist;
+    }
+
+    public static boolean isTrash(Node node) {
+        return trashlist.contains(node);
+    }
 
     private static class StayinAliveThread extends Thread {
         public StayinAliveThread() {}

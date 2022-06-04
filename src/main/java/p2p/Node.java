@@ -6,12 +6,16 @@ public class Node {
     String guid;
     String ipAddress;
     int portNo;
-    final int ID_LENGTH = 160;
+    int sumInteractions;
+    int successInteractions;
+
 
     public Node(String guid, String ipAddress, int portNo) {
         this.guid = guid;
         this.ipAddress = ipAddress;
         this.portNo = portNo;
+        this.sumInteractions = 0;
+        this.successInteractions = 0;
     }
 
     public String getGuid() {
@@ -38,5 +42,14 @@ public class Node {
     @Override
     public int hashCode() {
         return Objects.hash(guid, ipAddress, portNo);
+    }
+
+    public void incrementInteractions() {
+        this.sumInteractions++;
+        this.successInteractions++;
+    }
+
+    public void incrementUnsuccessfulInteractions() {
+        this.sumInteractions++;
     }
 }
