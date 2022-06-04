@@ -1,33 +1,22 @@
 package Blockchain;
 
-import p2p.ServerGrpc;
-import p2p.User;
-import java.io.IOException;
+import p2p.Wallet;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        int port = 8081; //TODO QUAL É A PORTA PARA USAR
+    public static void main(String[] args){
 
-
-        User user = new User();
-        user.iniateUser(port, "localhost");
-        //falta chamar o start
-
-        ServerGrpc server = new ServerGrpc("localhost", port);
-        server.start();
-
-        User.wallet.printBalance();
-
-
-
-        /*
+/*
         List<Transaction> tempTxList = new ArrayList();
         long i = 2345;
         tempTxList.add("My","name", "is", i, i);
-        //tempTxList.add();
-        //tempTxList.add();
-        //tempTxList.add("Nikhil");
-        //tempTxList.add("sara");
+        tempTxList.add();
+        tempTxList.add();
+        tempTxList.add("Nikhil");
+        tempTxList.add("sara");
 
         MerkleTree merkleTrees = new MerkleTree(tempTxList);
         merkleTrees.merkle_tree();
@@ -36,21 +25,21 @@ public class Main {
 
 
         // b4ad42740f74141d5dc4472608c9f8aebff7fcb7694da2edbf4241f292ba5549 sara
-/*
-        List<Block> blockchain = new ArrayList<>();
 
+        List<Block> blockchain = new ArrayList<>();
+        Wallet wallet = new Wallet();
 
         long a = 2345678;
         List<Transaction> trans = new ArrayList<>();
-        Transaction transaction1 = new Transaction("Peter", "Sam", "ola", 1234, a);
-        Transaction transaction2 = new Transaction("Sam", "Ryan", "ola", 1234, a);
-        Transaction transaction3 = new Transaction("jhgfd", "Rhgfyan", "ola", 12354, a);
+        Transaction transaction1 = new Transaction(1234,"Sam", "Ryan");
+        Transaction transaction2 = new Transaction(4321, "Sara", "Marcia");
+        Transaction transaction3 = new Transaction(1234, "Sam", "Ryan");
         trans.add(transaction1);
         trans.add(transaction2);
 
         System.out.println("trans:" + trans);
 
-        Block firstBlock = new Block("0", "0", trans);
+        Block firstBlock = new Block("0", "0", trans, wallet);
         System.out.println(firstBlock.hashCode());
         blockchain.add(firstBlock);
 
@@ -58,13 +47,13 @@ public class Main {
         System.out.println("trans:" + trans);
 
 
-        Block secondBlock = new Block("1", firstBlock.previousHash, trans);
-        System.out.println(secondBlock.hashCode());
-        blockchain.add(secondBlock);
+        //Block secondBlock = new Block("1", firstBlock.previousHash, trans);
+        //System.out.println(secondBlock.hashCode());
+        //blockchain.add(secondBlock);
 
         //blockchain.printChain();
         System.out.println(blockchain);
-*/
+
     }
 
 }

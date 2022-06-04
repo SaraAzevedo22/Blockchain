@@ -16,8 +16,6 @@ public class Transaction {
     public long timestamp;
     public String hashBlock;
     // TODO call Wallet file
-    // TODO call Wallet file
-    // TODO call Wallet file
     public byte[] signature;
 
 
