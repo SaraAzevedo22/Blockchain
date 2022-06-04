@@ -10,11 +10,12 @@ public class User {
     public static String id;
     public static String ipAddress;
     public static int portNo;
-    public KademliaRoutingTable kadRT;
-    public Blockchain blockchain;
+    public static Blockchain blockchain;
     public static String publicKey;
     public static Wallet wallet = new Wallet();
-    public int nonce = 0;
+    public static int nonce = 0;
+    static final int DEPTH = 20;
+    public static KademliaBucket kadBucket = new KademliaBucket(DEPTH);
 
     public User() {
     }

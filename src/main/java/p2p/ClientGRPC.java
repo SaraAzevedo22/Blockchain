@@ -3,9 +3,9 @@ package p2p;
 import com.proto.test.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 
-
-import java.security.spec.InvalidKeySpecException;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 public class ClientGRPC {
@@ -37,11 +37,22 @@ public class ClientGRPC {
                 .setId(User.id)
                 .setIpAddress(User.ipAddress)
                 .setPortNo(User.portNo)
+                .setNonce(User.nonce)
                 .setPublicKey(User.publicKey)
                 .build();
         PingResponse response = blockingStub.ping(request);
-        return false;
+        if(response != null) return true;
+        else return false;
     }
+
+    /*
+    public TreeSet<Contact> findNode(String target) {
+        KNodes foundNodes = blockingStub.findNode(FindNode.newBuilder().setId(User.id).setIpAddress(User.ipAddress).setPortNo(User.portNo).setNonce(User.nonce).setTarget(target).build());
+
+    } */
+
+
+
 
     // On the client side, the client has a stub (referred to as just a client in some languages) that provides the same methods as the server.
 

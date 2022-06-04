@@ -6,7 +6,6 @@ import io.grpc.stub.StreamObserver;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class ServerGrpc{
 
@@ -42,12 +41,11 @@ public class ServerGrpc{
 
     }
 
-    // private class GreeterImpl extends GreeterGrpc.GreeterImplBase
+
     class PeerService extends  P2PGrpc.P2PImplBase {
         public void ping(Ping request, StreamObserver<PingResponse> responseObserver) {
-
-            responseObserver.onNext();
-
+            User.kadBucket.containsNode(new Node(request.getId(), request.getIpAddress(),request.getPortNo()));
+            responseObserver.onNext(PingResponse.newBuilder().setResponseMessage(true).build());
             responseObserver.onCompleted();
         }
     }
