@@ -3,8 +3,8 @@
 
 package com.proto.test;
 
-public interface PingOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:test.Ping)
+public interface NodeforKNodesOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:test.NodeforKNodes)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -36,22 +36,4 @@ public interface PingOrBuilder extends
    * @return The portNo.
    */
   int getPortNo();
-
-  /**
-   * <code>int32 nonce = 4;</code>
-   * @return The nonce.
-   */
-  int getNonce();
-
-  /**
-   * <code>string publicKey = 5;</code>
-   * @return The publicKey.
-   */
-  java.lang.String getPublicKey();
-  /**
-   * <code>string publicKey = 5;</code>
-   * @return The bytes for publicKey.
-   */
-  com.google.protobuf.ByteString
-      getPublicKeyBytes();
 }

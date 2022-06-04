@@ -1,11 +1,24 @@
 package Blockchain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import p2p.ServerGrpc;
+import p2p.User;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
+        int port = 8081; //TODO QUAL É A PORTA PARA USAR
+
+
+        User user = new User();
+        user.iniateUser(port, "localhost");
+        //falta chamar o start
+
+        ServerGrpc server = new ServerGrpc("localhost", port);
+        server.start();
+
+        User.wallet.printBalance();
+
+
 
         /*
         List<Transaction> tempTxList = new ArrayList();

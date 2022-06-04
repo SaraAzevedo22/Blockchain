@@ -24,6 +24,21 @@ public final class Test {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_test_PingResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_test_FindNode_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_test_FindNode_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_test_NodeforKNodes_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_test_NodeforKNodes_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_test_KNodes_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_test_KNodes_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33,12 +48,19 @@ public final class Test {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017test/test.proto\022\004test\"H\n\004Ping\022\n\n\002id\030\001 " +
-      "\001(\t\022\021\n\tipAddress\030\002 \001(\t\022\016\n\006portNo\030\003 \001(\005\022\021" +
-      "\n\tpublicKey\030\004 \001(\t\"\'\n\014PingResponse\022\027\n\017res" +
-      "ponseMessage\030\001 \001(\0102/\n\003P2P\022(\n\004ping\022\n.test" +
-      ".Ping\032\022.test.PingResponse\"\000B\022\n\016com.proto" +
-      ".testP\001b\006proto3"
+      "\n\017test/test.proto\022\004test\"W\n\004Ping\022\n\n\002id\030\001 " +
+      "\001(\t\022\021\n\tipAddress\030\002 \001(\t\022\016\n\006portNo\030\003 \001(\005\022\r" +
+      "\n\005nonce\030\004 \001(\005\022\021\n\tpublicKey\030\005 \001(\t\"\'\n\014Ping" +
+      "Response\022\027\n\017responseMessage\030\001 \001(\010\"k\n\010Fin" +
+      "dNode\022\n\n\002id\030\001 \001(\t\022\021\n\tipAddress\030\002 \001(\t\022\016\n\006" +
+      "portNo\030\003 \001(\005\022\r\n\005nonce\030\004 \001(\005\022\021\n\tpublicKey" +
+      "\030\005 \001(\t\022\016\n\006target\030\006 \001(\t\">\n\rNodeforKNodes\022" +
+      "\n\n\002id\030\001 \001(\t\022\021\n\tipAddress\030\002 \001(\t\022\016\n\006portNo" +
+      "\030\003 \001(\005\".\n\006KNodes\022$\n\007kbucket\030\001 \003(\0132\023.test" +
+      ".NodeforKNodes2\\\n\003P2P\022(\n\004ping\022\n.test.Pin" +
+      "g\032\022.test.PingResponse\"\000\022+\n\tfind_node\022\016.t" +
+      "est.FindNode\032\014.test.KNodes\"\000B\022\n\016com.prot" +
+      "o.testP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -49,13 +71,31 @@ public final class Test {
     internal_static_test_Ping_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_test_Ping_descriptor,
-        new java.lang.String[] { "Id", "IpAddress", "PortNo", "PublicKey", });
+        new java.lang.String[] { "Id", "IpAddress", "PortNo", "Nonce", "PublicKey", });
     internal_static_test_PingResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_test_PingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_test_PingResponse_descriptor,
         new java.lang.String[] { "ResponseMessage", });
+    internal_static_test_FindNode_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_test_FindNode_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_test_FindNode_descriptor,
+        new java.lang.String[] { "Id", "IpAddress", "PortNo", "Nonce", "PublicKey", "Target", });
+    internal_static_test_NodeforKNodes_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_test_NodeforKNodes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_test_NodeforKNodes_descriptor,
+        new java.lang.String[] { "Id", "IpAddress", "PortNo", });
+    internal_static_test_KNodes_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_test_KNodes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_test_KNodes_descriptor,
+        new java.lang.String[] { "Kbucket", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

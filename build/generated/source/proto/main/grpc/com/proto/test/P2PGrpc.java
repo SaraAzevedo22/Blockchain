@@ -46,6 +46,37 @@ public final class P2PGrpc {
     return getPingMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.proto.test.FindNode,
+      com.proto.test.KNodes> getFindNodeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "find_node",
+      requestType = com.proto.test.FindNode.class,
+      responseType = com.proto.test.KNodes.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.proto.test.FindNode,
+      com.proto.test.KNodes> getFindNodeMethod() {
+    io.grpc.MethodDescriptor<com.proto.test.FindNode, com.proto.test.KNodes> getFindNodeMethod;
+    if ((getFindNodeMethod = P2PGrpc.getFindNodeMethod) == null) {
+      synchronized (P2PGrpc.class) {
+        if ((getFindNodeMethod = P2PGrpc.getFindNodeMethod) == null) {
+          P2PGrpc.getFindNodeMethod = getFindNodeMethod =
+              io.grpc.MethodDescriptor.<com.proto.test.FindNode, com.proto.test.KNodes>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "find_node"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.test.FindNode.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.proto.test.KNodes.getDefaultInstance()))
+              .setSchemaDescriptor(new P2PMethodDescriptorSupplier("find_node"))
+              .build();
+        }
+      }
+    }
+    return getFindNodeMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -101,6 +132,13 @@ public final class P2PGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getPingMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void findNode(com.proto.test.FindNode request,
+        io.grpc.stub.StreamObserver<com.proto.test.KNodes> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getFindNodeMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -110,6 +148,13 @@ public final class P2PGrpc {
                 com.proto.test.Ping,
                 com.proto.test.PingResponse>(
                   this, METHODID_PING)))
+          .addMethod(
+            getFindNodeMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.proto.test.FindNode,
+                com.proto.test.KNodes>(
+                  this, METHODID_FIND_NODE)))
           .build();
     }
   }
@@ -135,6 +180,14 @@ public final class P2PGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getPingMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void findNode(com.proto.test.FindNode request,
+        io.grpc.stub.StreamObserver<com.proto.test.KNodes> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getFindNodeMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -156,6 +209,13 @@ public final class P2PGrpc {
     public com.proto.test.PingResponse ping(com.proto.test.Ping request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getPingMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.proto.test.KNodes findNode(com.proto.test.FindNode request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getFindNodeMethod(), getCallOptions(), request);
     }
   }
 
@@ -180,9 +240,18 @@ public final class P2PGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getPingMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.proto.test.KNodes> findNode(
+        com.proto.test.FindNode request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getFindNodeMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PING = 0;
+  private static final int METHODID_FIND_NODE = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -204,6 +273,10 @@ public final class P2PGrpc {
         case METHODID_PING:
           serviceImpl.ping((com.proto.test.Ping) request,
               (io.grpc.stub.StreamObserver<com.proto.test.PingResponse>) responseObserver);
+          break;
+        case METHODID_FIND_NODE:
+          serviceImpl.findNode((com.proto.test.FindNode) request,
+              (io.grpc.stub.StreamObserver<com.proto.test.KNodes>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -267,6 +340,7 @@ public final class P2PGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new P2PFileDescriptorSupplier())
               .addMethod(getPingMethod())
+              .addMethod(getFindNodeMethod())
               .build();
         }
       }

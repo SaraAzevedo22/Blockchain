@@ -4,28 +4,27 @@
 package com.proto.test;
 
 /**
- * Protobuf type {@code test.Ping}
+ * Protobuf type {@code test.NodeforKNodes}
  */
-public final class Ping extends
+public final class NodeforKNodes extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:test.Ping)
-    PingOrBuilder {
+    // @@protoc_insertion_point(message_implements:test.NodeforKNodes)
+    NodeforKNodesOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Ping.newBuilder() to construct.
-  private Ping(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use NodeforKNodes.newBuilder() to construct.
+  private NodeforKNodes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Ping() {
+  private NodeforKNodes() {
     id_ = "";
     ipAddress_ = "";
-    publicKey_ = "";
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new Ping();
+    return new NodeforKNodes();
   }
 
   @java.lang.Override
@@ -33,7 +32,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Ping(
+  private NodeforKNodes(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -68,17 +67,6 @@ private static final long serialVersionUID = 0L;
             portNo_ = input.readInt32();
             break;
           }
-          case 32: {
-
-            nonce_ = input.readInt32();
-            break;
-          }
-          case 42: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            publicKey_ = s;
-            break;
-          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -100,15 +88,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.proto.test.Test.internal_static_test_Ping_descriptor;
+    return com.proto.test.Test.internal_static_test_NodeforKNodes_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.proto.test.Test.internal_static_test_Ping_fieldAccessorTable
+    return com.proto.test.Test.internal_static_test_NodeforKNodes_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.proto.test.Ping.class, com.proto.test.Ping.Builder.class);
+            com.proto.test.NodeforKNodes.class, com.proto.test.NodeforKNodes.Builder.class);
   }
 
   public static final int ID_FIELD_NUMBER = 1;
@@ -198,55 +186,6 @@ private static final long serialVersionUID = 0L;
     return portNo_;
   }
 
-  public static final int NONCE_FIELD_NUMBER = 4;
-  private int nonce_;
-  /**
-   * <code>int32 nonce = 4;</code>
-   * @return The nonce.
-   */
-  @java.lang.Override
-  public int getNonce() {
-    return nonce_;
-  }
-
-  public static final int PUBLICKEY_FIELD_NUMBER = 5;
-  private volatile java.lang.Object publicKey_;
-  /**
-   * <code>string publicKey = 5;</code>
-   * @return The publicKey.
-   */
-  @java.lang.Override
-  public java.lang.String getPublicKey() {
-    java.lang.Object ref = publicKey_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      publicKey_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string publicKey = 5;</code>
-   * @return The bytes for publicKey.
-   */
-  @java.lang.Override
-  public com.google.protobuf.ByteString
-      getPublicKeyBytes() {
-    java.lang.Object ref = publicKey_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      publicKey_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -270,12 +209,6 @@ private static final long serialVersionUID = 0L;
     if (portNo_ != 0) {
       output.writeInt32(3, portNo_);
     }
-    if (nonce_ != 0) {
-      output.writeInt32(4, nonce_);
-    }
-    if (!getPublicKeyBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, publicKey_);
-    }
     unknownFields.writeTo(output);
   }
 
@@ -295,13 +228,6 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(3, portNo_);
     }
-    if (nonce_ != 0) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(4, nonce_);
-    }
-    if (!getPublicKeyBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, publicKey_);
-    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -312,10 +238,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.proto.test.Ping)) {
+    if (!(obj instanceof com.proto.test.NodeforKNodes)) {
       return super.equals(obj);
     }
-    com.proto.test.Ping other = (com.proto.test.Ping) obj;
+    com.proto.test.NodeforKNodes other = (com.proto.test.NodeforKNodes) obj;
 
     if (!getId()
         .equals(other.getId())) return false;
@@ -323,10 +249,6 @@ private static final long serialVersionUID = 0L;
         .equals(other.getIpAddress())) return false;
     if (getPortNo()
         != other.getPortNo()) return false;
-    if (getNonce()
-        != other.getNonce()) return false;
-    if (!getPublicKey()
-        .equals(other.getPublicKey())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -344,78 +266,74 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getIpAddress().hashCode();
     hash = (37 * hash) + PORTNO_FIELD_NUMBER;
     hash = (53 * hash) + getPortNo();
-    hash = (37 * hash) + NONCE_FIELD_NUMBER;
-    hash = (53 * hash) + getNonce();
-    hash = (37 * hash) + PUBLICKEY_FIELD_NUMBER;
-    hash = (53 * hash) + getPublicKey().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.proto.test.Ping parseFrom(byte[] data)
+  public static com.proto.test.NodeforKNodes parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.proto.test.Ping parseFrom(java.io.InputStream input)
+  public static com.proto.test.NodeforKNodes parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.proto.test.Ping parseDelimitedFrom(java.io.InputStream input)
+  public static com.proto.test.NodeforKNodes parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.proto.test.Ping parseDelimitedFrom(
+  public static com.proto.test.NodeforKNodes parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.proto.test.Ping parseFrom(
+  public static com.proto.test.NodeforKNodes parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -428,7 +346,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.proto.test.Ping prototype) {
+  public static Builder newBuilder(com.proto.test.NodeforKNodes prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -444,26 +362,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code test.Ping}
+   * Protobuf type {@code test.NodeforKNodes}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:test.Ping)
-      com.proto.test.PingOrBuilder {
+      // @@protoc_insertion_point(builder_implements:test.NodeforKNodes)
+      com.proto.test.NodeforKNodesOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.proto.test.Test.internal_static_test_Ping_descriptor;
+      return com.proto.test.Test.internal_static_test_NodeforKNodes_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.proto.test.Test.internal_static_test_Ping_fieldAccessorTable
+      return com.proto.test.Test.internal_static_test_NodeforKNodes_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.proto.test.Ping.class, com.proto.test.Ping.Builder.class);
+              com.proto.test.NodeforKNodes.class, com.proto.test.NodeforKNodes.Builder.class);
     }
 
-    // Construct using com.proto.test.Ping.newBuilder()
+    // Construct using com.proto.test.NodeforKNodes.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -487,27 +405,23 @@ private static final long serialVersionUID = 0L;
 
       portNo_ = 0;
 
-      nonce_ = 0;
-
-      publicKey_ = "";
-
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.proto.test.Test.internal_static_test_Ping_descriptor;
+      return com.proto.test.Test.internal_static_test_NodeforKNodes_descriptor;
     }
 
     @java.lang.Override
-    public com.proto.test.Ping getDefaultInstanceForType() {
-      return com.proto.test.Ping.getDefaultInstance();
+    public com.proto.test.NodeforKNodes getDefaultInstanceForType() {
+      return com.proto.test.NodeforKNodes.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.proto.test.Ping build() {
-      com.proto.test.Ping result = buildPartial();
+    public com.proto.test.NodeforKNodes build() {
+      com.proto.test.NodeforKNodes result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -515,13 +429,11 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.proto.test.Ping buildPartial() {
-      com.proto.test.Ping result = new com.proto.test.Ping(this);
+    public com.proto.test.NodeforKNodes buildPartial() {
+      com.proto.test.NodeforKNodes result = new com.proto.test.NodeforKNodes(this);
       result.id_ = id_;
       result.ipAddress_ = ipAddress_;
       result.portNo_ = portNo_;
-      result.nonce_ = nonce_;
-      result.publicKey_ = publicKey_;
       onBuilt();
       return result;
     }
@@ -560,16 +472,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.proto.test.Ping) {
-        return mergeFrom((com.proto.test.Ping)other);
+      if (other instanceof com.proto.test.NodeforKNodes) {
+        return mergeFrom((com.proto.test.NodeforKNodes)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.proto.test.Ping other) {
-      if (other == com.proto.test.Ping.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.proto.test.NodeforKNodes other) {
+      if (other == com.proto.test.NodeforKNodes.getDefaultInstance()) return this;
       if (!other.getId().isEmpty()) {
         id_ = other.id_;
         onChanged();
@@ -580,13 +492,6 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getPortNo() != 0) {
         setPortNo(other.getPortNo());
-      }
-      if (other.getNonce() != 0) {
-        setNonce(other.getNonce());
-      }
-      if (!other.getPublicKey().isEmpty()) {
-        publicKey_ = other.publicKey_;
-        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -603,11 +508,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.proto.test.Ping parsedMessage = null;
+      com.proto.test.NodeforKNodes parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.proto.test.Ping) e.getUnfinishedMessage();
+        parsedMessage = (com.proto.test.NodeforKNodes) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -799,113 +704,6 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
-
-    private int nonce_ ;
-    /**
-     * <code>int32 nonce = 4;</code>
-     * @return The nonce.
-     */
-    @java.lang.Override
-    public int getNonce() {
-      return nonce_;
-    }
-    /**
-     * <code>int32 nonce = 4;</code>
-     * @param value The nonce to set.
-     * @return This builder for chaining.
-     */
-    public Builder setNonce(int value) {
-      
-      nonce_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>int32 nonce = 4;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearNonce() {
-      
-      nonce_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object publicKey_ = "";
-    /**
-     * <code>string publicKey = 5;</code>
-     * @return The publicKey.
-     */
-    public java.lang.String getPublicKey() {
-      java.lang.Object ref = publicKey_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        publicKey_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>string publicKey = 5;</code>
-     * @return The bytes for publicKey.
-     */
-    public com.google.protobuf.ByteString
-        getPublicKeyBytes() {
-      java.lang.Object ref = publicKey_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        publicKey_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string publicKey = 5;</code>
-     * @param value The publicKey to set.
-     * @return This builder for chaining.
-     */
-    public Builder setPublicKey(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      publicKey_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string publicKey = 5;</code>
-     * @return This builder for chaining.
-     */
-    public Builder clearPublicKey() {
-      
-      publicKey_ = getDefaultInstance().getPublicKey();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string publicKey = 5;</code>
-     * @param value The bytes for publicKey to set.
-     * @return This builder for chaining.
-     */
-    public Builder setPublicKeyBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      publicKey_ = value;
-      onChanged();
-      return this;
-    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -919,41 +717,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:test.Ping)
+    // @@protoc_insertion_point(builder_scope:test.NodeforKNodes)
   }
 
-  // @@protoc_insertion_point(class_scope:test.Ping)
-  private static final com.proto.test.Ping DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:test.NodeforKNodes)
+  private static final com.proto.test.NodeforKNodes DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.proto.test.Ping();
+    DEFAULT_INSTANCE = new com.proto.test.NodeforKNodes();
   }
 
-  public static com.proto.test.Ping getDefaultInstance() {
+  public static com.proto.test.NodeforKNodes getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Ping>
-      PARSER = new com.google.protobuf.AbstractParser<Ping>() {
+  private static final com.google.protobuf.Parser<NodeforKNodes>
+      PARSER = new com.google.protobuf.AbstractParser<NodeforKNodes>() {
     @java.lang.Override
-    public Ping parsePartialFrom(
+    public NodeforKNodes parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Ping(input, extensionRegistry);
+      return new NodeforKNodes(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Ping> parser() {
+  public static com.google.protobuf.Parser<NodeforKNodes> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Ping> getParserForType() {
+  public com.google.protobuf.Parser<NodeforKNodes> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.proto.test.Ping getDefaultInstanceForType() {
+  public com.proto.test.NodeforKNodes getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

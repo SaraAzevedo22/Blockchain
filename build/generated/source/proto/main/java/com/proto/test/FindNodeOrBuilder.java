@@ -3,8 +3,8 @@
 
 package com.proto.test;
 
-public interface PingOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:test.Ping)
+public interface FindNodeOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:test.FindNode)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -54,4 +54,16 @@ public interface PingOrBuilder extends
    */
   com.google.protobuf.ByteString
       getPublicKeyBytes();
+
+  /**
+   * <code>string target = 6;</code>
+   * @return The target.
+   */
+  java.lang.String getTarget();
+  /**
+   * <code>string target = 6;</code>
+   * @return The bytes for target.
+   */
+  com.google.protobuf.ByteString
+      getTargetBytes();
 }

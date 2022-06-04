@@ -84,8 +84,13 @@ public class Wallet {
         users.put(User.publicKey, amountTransfered);
     }*/
 
-    public Integer returnBalance(String publicKey) {
-        return users.get(publicKey);
+    public double returnBalance() {
+        return users.get(this.publicKey);
+    }
+
+    public void printBalance() {
+        System.out.print("Your account balance is: ");
+        System.out.print(returnBalance());
     }
 
     public void reloadLedger() {
