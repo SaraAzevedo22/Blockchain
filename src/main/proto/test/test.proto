@@ -8,16 +8,36 @@ option java_multiple_files = true;
 
 service P2P {
     rpc ping(Ping) returns (PingResponse){};
-
+    rpc find_node(FindNode) returns (KNodes){};
 }
 
 message Ping {
     string id = 1;
     string ipAddress = 2;
     int32 portNo = 3;
-    string publicKey = 4;
+    int32 nonce = 4;
+    string publicKey = 5;
 }
 
 message PingResponse {
     bool responseMessage = 1;
+}
+
+message FindNode {
+    string id = 1;
+    string ipAddress = 2;
+    int32 portNo = 3;
+    int32 nonce = 4;
+    string publicKey = 5;
+    string target = 6;
+}
+
+message NodeforKNodes {
+    string id = 1;
+    string ipAddress = 2;
+    int32 portNo = 3;
+}
+
+message KNodes {
+    repeated NodeforKNodes kbucket = 1;
 }
