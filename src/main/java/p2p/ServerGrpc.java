@@ -44,7 +44,7 @@ public class ServerGrpc{
 
     class PeerService extends  P2PGrpc.P2PImplBase {
         public void ping(Ping request, StreamObserver<PingResponse> responseObserver) {
-            User.kadBucket.containsNode(new Node(request.getId(), request.getIpAddress(),request.getPortNo()));
+            User.kadBucket.doesNodeExist(new Node(request.getId(), request.getIpAddress(),request.getPortNo()));
             responseObserver.onNext(PingResponse.newBuilder().setResponseMessage(true).build());
             responseObserver.onCompleted();
         }

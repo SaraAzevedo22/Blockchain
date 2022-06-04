@@ -3,9 +3,6 @@ package p2p;
 import com.proto.test.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.StatusRuntimeException;
-
-import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 public class ClientGRPC {

@@ -52,7 +52,7 @@ public class Wallet {
         signature.update(messageBytes);
 
         byte[] digitalSignature = signature.sign();
-        
+
         return new byte[][]{messageBytes,digitalSignature};
     }
 
