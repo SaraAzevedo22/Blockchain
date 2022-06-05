@@ -4,7 +4,13 @@ package p2p;
 import Blockchain.Blockchain;
 import Blockchain.Config;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
@@ -16,9 +22,10 @@ public class User {
     public static String publicKey;
     public static Wallet wallet = new Wallet();
     public static int proof = 0;
-    public static ArrayList<Node> trashlist = new ArrayList<>();
+    public static ArrayList<Node> trashList = new ArrayList<>();
     public static KademliaBucket kadBucket = new KademliaBucket();
-    public static StayinAliveThread stayinAliveThread= new StayinAliveThread();
+    public static StayinAliveThread stayinAliveThread = new StayinAliveThread();
+    public static MiningBlockThread miningBlockThread = new MiningBlockThread();
 
     public User() {
     }
@@ -31,16 +38,42 @@ public class User {
         this.ipAddress = ip;
         this.publicKey = this.wallet.getPublicKey();
         this.blockchain = new Blockchain();
-        this.id = getId();
         this.proof = 0;
+        this.id = getId();
+
+        try {
+            if(Config.bootstrapNode.equals("")) User.blockchain = new Blockchain(User.wallet);
+            else User.blockchain = new Blockchain();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+
+        if(Config.bootstrapNode.equals("")) {
+            Config.bootstrapNode = User.id;
+        }
+        else {
+            Node tempNode = new Node(Config.bootstrapNode, ip,8080);
+            User.kadBucket.addNodeToList(tempNode);
+            System.out.println("Node = " + tempNode);
+            Kademlia.pingNode(tempNode);
+            System.out.println("ARMED HOE");
+        }
+
     }
 
     private String getId() {
         String prefix = new String(new char[Config.difficulty]).replace('\0','0');
-        while(!id.substring(0, Config.difficulty).equals(prefix)) {
+         do {
             proof++;
             id = calculateHashId(this.ipAddress, this.portNo, this.publicKey, this.proof);
-        }
+        } while(!id.substring(0, Config.difficulty).equals(prefix));
         return id;
     }
 
@@ -49,15 +82,26 @@ public class User {
         return Config.calculateSHA256(ip + portNo + publicKey + proof); //Apply SHA256 to User ID
     }
 
-    public static void startPing() { User.stayinAliveThread.start(); }
-
-
-    public static void trustness() {
-        TreeSet<Contact> tempTree = KademliaBucket.getClonedTreeSet();
-        for(Contact contact : tempTree) {
-            Blockchain tempBlockchain = null;
-        }
+    public static void startPing() {
+        User.stayinAliveThread.start();
     }
+
+    public static void startMining() {
+        User.miningBlockThread.start();
+    }
+
+    /*
+    public static void trustness() {
+        ArrayList<Node> tempBucket = (ArrayList<Node>) kadBucket.lastSeenNodes.clone();
+        for(Node node : tempBucket) {
+            Blockchain tempBlockchain = null;
+
+            try {
+                tempBlockchain = new ClientGRPC(node.ipAddress, node.portNo)
+            }
+
+        }
+    } */
 
 
     public static void verifyNodesIntegrity(Node node) {
@@ -74,11 +118,11 @@ public class User {
     }
 
     public static void addNodesToTrash(Node node) {
-        trashlist.add(node);
+        trashList.add(node);
     }
 
     public static boolean isTrash(Node node) {
-        return trashlist.contains(node);
+        return trashList.contains(node);
     }
 
     private static class StayinAliveThread extends Thread {
@@ -96,6 +140,28 @@ public class User {
                         User.kadBucket.lastSeenNodes.remove(i);
                         i--;
                     }
+                }
+            }
+        }
+    }
+
+    private static class MiningBlockThread extends Thread {
+        public MiningBlockThread() {}
+
+        public void run() {
+            while(true) {
+                try {
+                    TimeUnit.MICROSECONDS.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if(User.blockchain.getFromWaitingTransactions().size() >= 1) {
+                    String hashBlock = Config.calculateSHA256(new Date().getTime() + "");
+
+                    User.blockchain.mineWaitingTransactions(User.wallet);
+                    User.wallet.upgradeLedger(User.blockchain.getLastBlock());
+
                 }
             }
         }

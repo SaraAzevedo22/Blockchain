@@ -10,6 +10,7 @@ public class KademliaBucket {
     public static TreeSet<Contact> contacts; //Contacts stored in routing table
     TreeSet<Contact> backupContacts;
     final int BUCKET_SIZE = 20;
+    final int ALPHA = 4; //Number of nodes to announce
 
 
     public KademliaBucket(int depth) {
@@ -190,6 +191,17 @@ public class KademliaBucket {
             else if(s1.length() < s2.length()) return -1;
         }
         return 0;
+    }
+
+    public ArrayList<Node> getNClosestNodes(String target, ArrayList<Node> nodes) {
+        if(ALPHA > nodes.size()) return getNeighbours(nodes, target);
+        else return (ArrayList<Node>) getNeighbours(nodes, target).subList(0,ALPHA -1);
+    }
+
+    public void doesNodeExistInList(ArrayList<Node> list) {
+        int proof = -1;
+
+        for(Node node: list) doesNodeExist(node,proof,"");
     }
 
     /**

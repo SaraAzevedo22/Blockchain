@@ -1,9 +1,9 @@
 package p2p;
 
+import Blockchain.Blockchain;
 import com.proto.test.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.Server;
 import io.grpc.StatusRuntimeException;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class ClientGRPC {
     private String ip = "localhost";
     public P2PGrpc.P2PBlockingStub blockingStub;
-    private int port = 50051;
+    private int port;
     private ManagedChannel channel;
 
     public ClientGRPC(String ip, int port) {
@@ -32,9 +32,8 @@ public class ClientGRPC {
         channel.shutdown().awaitTermination(4, TimeUnit.SECONDS);
     }
 
-    // TODO find node peer & send block & send transaction & get blockchain
-
     public boolean ping() {
+        System.out.println("MEKIE MERMAO");
         Ping request = Ping.newBuilder()
                 .setId(User.id)
                 .setIpAddress(User.ipAddress)
@@ -42,7 +41,10 @@ public class ClientGRPC {
                 .setProof(User.proof)
                 .setPublicKey(User.publicKey)
                 .build();
+        System.out.println("AQUIIIIIIIIIIIIIII");
+        System.out.println("request = " + request);
         PingResponse response = blockingStub.ping(request);
+        System.out.println("BOAAAAAAAAAAAAAAAAAAAS");
         if(response != null) return true;
         else return false;
     }
@@ -69,7 +71,7 @@ public class ClientGRPC {
     }
 
     public static ArrayList<Node> GRPCForKBucket(KNodes kbucket){
-        ArrayList<NodeforKNodes> nodeList = new ArrayList<>(kbucket.getKbucketList());  //adicionar 'List' à frente do nome do método/message
+        ArrayList<NodeforKNodes> nodeList = new ArrayList<>(kbucket.getKbucketList());
         ArrayList<Node> a = new ArrayList<>();
         for (NodeforKNodes node : nodeList)
             a.add(GRPCForNode(node));
@@ -80,6 +82,4 @@ public class ClientGRPC {
     public static Node GRPCForNode(NodeforKNodes node){
         return new Node(node.getId(),node.getIpAddress(),node.getPortNo());
     }
-
-
 }

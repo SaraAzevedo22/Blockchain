@@ -1,6 +1,9 @@
 package p2p;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Kademlia {
     public static boolean pingNode(Node node) {
@@ -38,6 +41,48 @@ public class Kademlia {
 
     public static String addPadding(int n) {
         return "0".repeat(Math.max(0,n));
+    }
+
+    public static Node findNode(String target) {
+        ArrayList<Node> nodesFound = new ArrayList<>();
+        ArrayList<Node> closestNodes = User.kadBucket.getNClosestNodes(target, User.kadBucket.lastSeenNodes);
+        ArrayList<Node> recentSeen = null;
+
+        while(true) {
+            for(Node user: closestNodes) {
+                ArrayList<Node> temp = new ClientGRPC(user.ipAddress, user.portNo).findNode(target);
+                nodesFound.addAll(temp);
+            }
+
+            removeDuplicated(nodesFound);
+
+            for(Node node: nodesFound) {
+                if(node.guid.equals(target)) {
+                    nodesFound.remove(node);
+                    break;
+                }
+            }
+
+            removeDuplicated(nodesFound);
+            User.kadBucket.doesNodeExistInList(nodesFound);
+
+            if(recentSeen == null) recentSeen = new ArrayList<>();
+            else if(recentSeen.containsAll(nodesFound)) return null;
+
+            recentSeen.clear();
+            recentSeen.addAll(nodesFound);
+
+            closestNodes = User.kadBucket.getNeighbours(nodesFound, target);
+            nodesFound.clear();
+        }
+
+    }
+
+    private static void removeDuplicated(ArrayList<Node> users) {
+        Set<Node> user = new HashSet<>(users);
+
+        user.clear();
+        user.addAll(users);
     }
 
 }

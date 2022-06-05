@@ -8,6 +8,7 @@ import Blockchain.Transaction;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Hashtable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -49,7 +50,7 @@ public class Wallet {
         Signature signature = Signature.getInstance("RSA");
 
         byte[] data = Base64.decode((privateKey.getBytes(StandardCharsets.UTF_8)));
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
+        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(data);
         KeyFactory fact = KeyFactory.getInstance("RSA");
         signature.initSign(fact.generatePrivate(spec));
 
@@ -66,7 +67,7 @@ public class Wallet {
 
         byte[] data = pubKeyReceived.getBytes();
         KeyFactory fact = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(data);
+        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(data);
         PublicKey publicKeyReceived = fact.generatePublic(spec);
 
         signature.initVerify(publicKeyReceived);
