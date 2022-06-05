@@ -9,37 +9,29 @@ import java.util.Objects;
 
 
 public class Block {
-    public String hashId;
-    public String hashBlock;
-    public String previousHash;
-    // TODO Verify - List<Transaction> was changed to List<String>
     public List<Transaction> transactions;
-    public int nonce = 0;
-    public long timestamp;
-    // TODO call Wallet file
+    public String hashId;
+    public String previousHash;
+    public String hashBlock;
     public String publicKey;
+    public long timestamp;
+    public int nonce = 0;
 
-    //Constructor to create the Block // TODO call Wallet file
+    //Constructor to create the Block
     public Block(String hashId, String previousHash, List<Transaction> transactions, Wallet minePublicKey) {
-        this.transactions = transactions;
         this.hashId = hashId;
-        this.hashBlock = calculateHash();
         this.previousHash = previousHash;
-        this.nonce = nonce;
-        this.timestamp = new Date().getTime();
-        // TODO call Wallet file
+        this.transactions = transactions;
         this.publicKey = minePublicKey.getPublicKey();
-
-        //Object[] content = {Arrays.hashCode(transactions), previousHash};
-        //this.blockHash = Arrays.hashCode(content);
+        this.hashBlock = calculateHash();
+        this.timestamp = new Date().getTime();
     }
 
-    // TODO call Wallet file
     public Block(String hashId, String hashBlock, String previousHash, List<Transaction> transactions, int nonce, long timestamp, String minePublicKey) {
-        this.transactions = transactions;
         this.hashId = hashId;
         this.hashBlock = hashBlock;
         this.previousHash = previousHash;
+        this.transactions = transactions;
         this.nonce = nonce;
         this.timestamp = timestamp;
         this.publicKey = minePublicKey;
@@ -49,11 +41,9 @@ public class Block {
     public String calculateHash() {
         MerkleTree merkleTree = new MerkleTree(transactions);
         merkleTree.merkle_tree();
-        // TODO Get MerkleTreeRoot??
         return Config.calculateSHA256(this.hashId + this.previousHash + this.timestamp + this.nonce);
     }
 
-    // TODO Change the difficulty
     //Mining the block
     public int mineBlock() {
         String prefix = new String(new char[Config.difficulty]).replace('\0','0');
@@ -66,9 +56,6 @@ public class Block {
         return nonce;
     }
 
-    public boolean isValid(){
-        return this.hashId.equals(calculateHash());
-    }
 /*
     //Getters and Setters
     public String getPreviousHash() {

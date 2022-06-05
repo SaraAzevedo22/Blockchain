@@ -1,7 +1,7 @@
 package Blockchain;
 
-import p2p.User;
 import p2p.Wallet;
+import p2p.User;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blockchain {
-    public static List<Block> chain = new ArrayList<>();  // TODO <Block> ??
-    public List<Transaction> waitingTransactions = new ArrayList<>();  // TODO <> ??
+    public static List<Block> chain = new ArrayList<>();
+    public List<Transaction> waitingTransactions = new ArrayList<>();
     private final int MAX_TRANSACTION = 5;
 
     //Constructor
@@ -21,7 +21,6 @@ public class Blockchain {
         this.waitingTransactions = waitingTransactions;
     }
 
-    // TODO call Wallet file
     public Blockchain(Wallet wallet) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
         genesisBlock(wallet);
     }
@@ -31,7 +30,6 @@ public class Blockchain {
         this.waitingTransactions = new ArrayList<>();
     }
 
-    // TODO call Wallet file
     public Transaction addTransaction(int amount, Wallet send, Wallet received) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
         Transaction newt = new Transaction(amount, send.getPublicKey(), received.getPublicKey());
         newt.signTransaction(send);
@@ -39,14 +37,13 @@ public class Blockchain {
         return newt;
     }
 
-    // TODO call Wallet file
     public void genesisBlock(Wallet wallet) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
         Wallet temp = new Wallet();
         this.addTransaction(100, temp, wallet);
-
+        this.mineWaitingTransactions(wallet);
     }
 
-    //Add waiting new pending transactions to the waiting transactions list
+    //Add waiting new pending transactions to the waiting transactions list //TODO apagar??
     public void addToWaitingTransactions(List<Transaction> pendingTransactions){
         int temp=0;
         while(temp< pendingTransactions.size()){
@@ -56,12 +53,12 @@ public class Blockchain {
         }
     }
 
-    //Get the waiting transactions
+    //Get the waiting transactions //TODO apagar??
     public List<Transaction> getFromWaitingTransactions() {
         return waitingTransactions;
     }
 
-    //? blocks to the chain
+    //? blocks to the chain //TODO apagar??
     public void defineChain(List<Block> oldChain) {
         for(int i=0; i<oldChain.size(); i++) {
             Block actualBlock = oldChain.get(i);
@@ -73,12 +70,11 @@ public class Blockchain {
         }
     }
 
-    //Get the chain
+    //Get the chain //TODO apagar??
     public static List<Block> getChain(){return chain;}
 
     //Add blocks to the chain
     public boolean addBlock(Block newBlock) {
-
         if (!newBlock.verify()) {
             System.out.println("Error. The block couldn't be added because the hashes don't match.");
             return false;
