@@ -3,6 +3,10 @@ package p2p;
 import com.proto.test.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.Server;
+import io.grpc.StatusRuntimeException;
+
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class ClientGRPC {
@@ -35,7 +39,7 @@ public class ClientGRPC {
                 .setId(User.id)
                 .setIpAddress(User.ipAddress)
                 .setPortNo(User.portNo)
-                .setNonce(User.nonce)
+                .setProof(User.proof)
                 .setPublicKey(User.publicKey)
                 .build();
         PingResponse response = blockingStub.ping(request);
@@ -43,16 +47,39 @@ public class ClientGRPC {
         else return false;
     }
 
-    /*
-    public TreeSet<Contact> findNode(String target) {
-        KNodes foundNodes = blockingStub.findNode(FindNode.newBuilder().setId(User.id).setIpAddress(User.ipAddress).setPortNo(User.portNo).setNonce(User.nonce).setTarget(target).build());
+    public ArrayList<Node> findNode(String target) {
+        try {
+            try {
 
-    } */
+                KNodes foundNodes = blockingStub.findNode(FindNode.newBuilder().setId(User.id).setIpAddress(User.ipAddress).setPortNo(User.portNo).setProof(User.proof).setPublicKey(User.publicKey).setTarget(target).build());
+                ArrayList<Node> nodeList = GRPCForKBucket(foundNodes);
 
+                return nodeList;
+            } catch (StatusRuntimeException e) {
 
+                return null;
+            }
+        } finally {
+            try {
+                ClientGRPC.this.shutdown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public static ArrayList<Node> GRPCForKBucket(KNodes kbucket){
+        ArrayList<NodeforKNodes> nodeList = new ArrayList<>(kbucket.getKbucketList());  //adicionar 'List' à frente do nome do método/message
+        ArrayList<Node> a = new ArrayList<>();
+        for (NodeforKNodes node : nodeList)
+            a.add(GRPCForNode(node));
 
-    // On the client side, the client has a stub (referred to as just a client in some languages) that provides the same methods as the server.
+        return a;
+    }
+
+    public static Node GRPCForNode(NodeforKNodes node){
+        return new Node(node.getId(),node.getIpAddress(),node.getPortNo());
+    }
 
 
 }

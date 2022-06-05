@@ -1,7 +1,6 @@
 package p2p;
 
-import org.checkerframework.checker.units.qual.A;
-
+import Blockchain.Config;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -21,10 +20,6 @@ public class KademliaBucket {
 
     public KademliaBucket() {
         lastSeenNodes = new ArrayList<>();
-    }
-
-    public void removeNode(Node node) {
-        lastSeenNodes.remove(node);
     }
 
      public void insertContact(Contact contact) {
@@ -125,6 +120,15 @@ public class KademliaBucket {
         return null;
     }
 
+    public void sendNodeToEnd(Node node){
+        lastSeenNodes.remove(node);
+        lastSeenNodes.add(node);
+    }
+
+    public void removeNodeFromList(Node node) {
+        lastSeenNodes.remove(node);
+    }
+
     public ArrayList<Node> getLastSeenNodes() {
         return lastSeenNodes;
     }
@@ -133,22 +137,60 @@ public class KademliaBucket {
         this.lastSeenNodes = lastSeenNodes;
     }
 
-    public boolean doesNodeExist(Node node) {
-        if(node.guid.equals(User.id)) return true; //The node is verifyng itself
+    public void addNodeToList(Node node) {
+        lastSeenNodes.add(node);
+    }
 
+    public boolean doesNodeExist(Node node, int proof, String publicKey) {
+        if(node.guid.equals(User.id)) return true; //The node is verifying itself
+
+        if(proof != -1) {
+            if(!isNodeValid(node.guid,node.ipAddress,node.portNo,proof,publicKey)) return false;
+        }
+
+        if(lastSeenNodes.contains(node)) {
+            sendNodeToEnd(node);
+            return true;
+        }
+
+        if(BUCKET_SIZE > lastSeenNodes.size()) {
+            addNodeToList(node);
+        }
+        else {
+            if(!Kademlia.pingNode(getOldestNode())) {
+                removeNodeFromList(getOldestNode());
+                addNodeToList(node);
+            }
+            else sendNodeToEnd(getOldestNode());
+        }
         return false;
     }
 
-   /* public ArrayList<Node> getNeighbours(ArrayList<Node> nodesList, String a) {
+
+    public boolean isNodeValid(String id, String ipAddress, int portNo, int proof, String publicKey) {
+        return Config.calculateSHA256(ipAddress + portNo + proof + publicKey).equals(id);
+    }
+
+    public ArrayList<Node> getNeighbours(ArrayList<Node> nodesList, String string) {
         ArrayList<Node> finalList = (ArrayList<Node>)nodesList.clone();
 
         finalList.sort((node1,node2) -> {
-            String xor1 = Kademlia.xorDist(node1.guid, );
-            String xor2 = Kademlia.xorDist(node2.guid, )
+            String xor1 = Kademlia.xorDist(node1.guid, string);
+            String xor2 = Kademlia.xorDist(node2.guid, string);
+
+            return compareDistance(xor1,xor2);
         });
 
         return finalList;
-    }*/
+    }
+
+    public static int compareDistance(String s1, String s2) {
+        for(int i = 0; i < s1.length();i++) {
+            if(s1.length() > s2.length()) return 1;
+            else if(s1.length() < s2.length()) return -1;
+        }
+        return 0;
+    }
 
     /**
      * Getters and Setters

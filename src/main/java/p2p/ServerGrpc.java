@@ -5,6 +5,7 @@ import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class ServerGrpc{
@@ -41,18 +42,31 @@ public class ServerGrpc{
 
     }
 
+    public static KNodes KBucketForGRPC(ArrayList<Node> nodeList){
+        ArrayList<NodeforKNodes> nodeListGrpc = new ArrayList<>();
+        for (Node node : nodeList)
+            nodeListGrpc.add(NodeForGRPC(node));
+        return KNodes.newBuilder().addAllKbucket(nodeListGrpc).build();
+    }
+
+    public static NodeforKNodes NodeForGRPC(Node node){
+        return NodeforKNodes.newBuilder().setId(node.guid).setIpAddress(node.ipAddress).setPortNo(node.portNo).build();
+    }
+
 
     class PeerService extends  P2PGrpc.P2PImplBase {
         public void ping(Ping request, StreamObserver<PingResponse> responseObserver) {
-            User.kadBucket.doesNodeExist(new Node(request.getId(), request.getIpAddress(),request.getPortNo()));
+            User.kadBucket.doesNodeExist(new Node(request.getId(), request.getIpAddress(),request.getPortNo()), request.getProof(), request.getPublicKey());
             responseObserver.onNext(PingResponse.newBuilder().setResponseMessage(true).build());
             responseObserver.onCompleted();
         }
-    }
+        public void findNode(FindNode request, StreamObserver<KNodes> responseObserver) {
+            if(User.kadBucket.doesNodeExist(new Node(request.getId(), request.getIpAddress(), request.getPortNo()), request.getProof(), request.getPublicKey())) {
+                responseObserver.onNext(KBucketForGRPC(User.kadBucket.getNeighbours(User.kadBucket.lastSeenNodes, request.getTarget())));
+            }
+            responseObserver.onCompleted();
+        }
 
-    /*
-    TODO gRPC is based around the idea of defining a service, specifying the methods that can be called remotely with their parameters and return types
-    * On the server side, the server implements this interface and runs a gRPC server to handle client calls.
-     */
+    }
 
 }
