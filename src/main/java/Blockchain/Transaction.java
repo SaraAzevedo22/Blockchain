@@ -54,32 +54,27 @@ public class Transaction {
         return true;
     }
 
-/*
-    //Getters and Setters
-    public String getSourceName() {
-        return sourceName;
-    }
-
-    public void setSourceName(String sourceName) {
-        this.sourceName = sourceName;
-    }
-
-    public String getDestinationName() {
-        return destinationName;
-    }
-
-    public void setDestinationName(String destinationName) {
-        this.destinationName = destinationName;
-    }
-
-    public Long getSum() {
-        return sum;
-    }
-
-    public void setSum(Long sum) {
-        this.sum = sum;
-    }
-*/
+    /*
+        //Getters and Setters
+        public String getSourceName() {
+            return sourceName;
+        }
+        public void setSourceName(String sourceName) {
+            this.sourceName = sourceName;
+        }
+        public String getDestinationName() {
+            return destinationName;
+        }
+        public void setDestinationName(String destinationName) {
+            this.destinationName = destinationName;
+        }
+        public Long getSum() {
+            return sum;
+        }
+        public void setSum(Long sum) {
+            this.sum = sum;
+        }
+    */
     //Equals and Hash Code
     @Override
     public boolean equals(Object o) {

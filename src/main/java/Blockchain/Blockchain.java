@@ -106,21 +106,16 @@ public class Blockchain {
     /*public boolean isValid() {
         Block previous, actual;
         String hashPrefix = new String(new char[Config.difficulty]).replace('\0','0');
-
         int i=1;
         while (i< chain.size()) {
             actual = chain.get(i);
             previous = chain.get(i-1);
-
             if(!actual.hashBlock.equals(actual.calculateHash()))
                 return false;
-
             if(!actual.previousHash.equals(previous.hashBlock))
                 return false;
-
             if(!actual.hashBlock.substring(0,Config.difficulty).equals(hashPrefix))
                 return false;
-
             int k=0;
             while(k < actual.transactions.size()) {
                 Transaction actualTransaction = actual.transactions.get(k);
@@ -129,7 +124,6 @@ public class Blockchain {
                 }
                 k++;
             }
-
             i++;
         }
         return true;

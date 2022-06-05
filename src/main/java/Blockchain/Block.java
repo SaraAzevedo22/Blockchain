@@ -16,9 +16,10 @@ public class Block {
     public List<Transaction> transactions;
     public int nonce = 0;
     public long timestamp;
+    // TODO call Wallet file
     public String publicKey;
 
-    //Constructor to create the Block
+    //Constructor to create the Block // TODO call Wallet file
     public Block(String hashId, String previousHash, List<Transaction> transactions, Wallet minePublicKey) {
         this.transactions = transactions;
         this.hashId = hashId;
@@ -26,9 +27,14 @@ public class Block {
         this.previousHash = previousHash;
         this.nonce = nonce;
         this.timestamp = new Date().getTime();
+        // TODO call Wallet file
         this.publicKey = minePublicKey.getPublicKey();
+
+        //Object[] content = {Arrays.hashCode(transactions), previousHash};
+        //this.blockHash = Arrays.hashCode(content);
     }
 
+    // TODO call Wallet file
     public Block(String hashId, String hashBlock, String previousHash, List<Transaction> transactions, int nonce, long timestamp, String minePublicKey) {
         this.transactions = transactions;
         this.hashId = hashId;
@@ -60,6 +66,9 @@ public class Block {
         return nonce;
     }
 
+    public boolean isValid(){
+        return this.hashId.equals(calculateHash());
+    }
 /*
     //Getters and Setters
     public String getPreviousHash() {
@@ -77,7 +86,6 @@ public class Block {
     public void setTransactions(List<String> transactions) {
         this.transactions = transactions;
     }*/
-
 
     //Equals and Hash Code
     @Override
