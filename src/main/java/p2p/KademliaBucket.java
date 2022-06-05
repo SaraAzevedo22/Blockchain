@@ -2,11 +2,12 @@ package p2p;
 
 import Blockchain.Config;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 
 public class KademliaBucket {
     int depth;
-    public ArrayList<Node> lastSeenNodes = new ArrayList<>();
+    public static ArrayList<Node> lastSeenNodes = new ArrayList<>();
     public static TreeSet<Contact> contacts; //Contacts stored in routing table
     TreeSet<Contact> backupContacts;
     final int BUCKET_SIZE = 20;
@@ -202,6 +203,11 @@ public class KademliaBucket {
         int proof = -1;
 
         for(Node node: list) doesNodeExist(node,proof,"");
+    }
+
+    // TODO trustness
+    public static ArrayList<Node> getClonedList() {
+        return (ArrayList)lastSeenNodes.clone();
     }
 
     /**

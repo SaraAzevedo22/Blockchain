@@ -11,6 +11,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
@@ -90,18 +91,21 @@ public class User {
         User.miningBlockThread.start();
     }
 
-    /*
-    public static void trustness() {
-        ArrayList<Node> tempBucket = (ArrayList<Node>) kadBucket.lastSeenNodes.clone();
-        for(Node node : tempBucket) {
-            Blockchain tempBlockchain = null;
+    public static void Trust() {
+        List<Node> bucket = KademliaBucket.getClonedList();
+        for (Node node : bucket) {
+            Blockchain blockchain = null;
 
-            try {
-                tempBlockchain = new ClientGRPC(node.ipAddress, node.portNo)
+            if (blockchain != null) {
+                if (blockchain.verifyBlockchain())
+                    User.kadBucket.getNode(String.valueOf(node.guid)).incrementInteractions();
+                else {
+                    User.kadBucket.getNode(String.valueOf(node.guid)).incrementUnsuccessfulInteractions();
+                    verifyNodesIntegrity(kadBucket.getNode(String.valueOf(node.guid)));
+                }
             }
-
         }
-    } */
+    }
 
 
     public static void verifyNodesIntegrity(Node node) {
@@ -135,6 +139,8 @@ public class User {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                User.Trust();
+
                 for(int i = 0;i < User.kadBucket.lastSeenNodes.size(); i++) {
                     if(!new ClientGRPC(User.kadBucket.lastSeenNodes.get(i).ipAddress, User.kadBucket.lastSeenNodes.get(i).portNo).ping()){
                         User.kadBucket.lastSeenNodes.remove(i);

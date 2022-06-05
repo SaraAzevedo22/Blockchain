@@ -104,19 +104,19 @@ public class Blockchain {
         System.out.println("Block added SUCCESSFULLY.");
         return true;
     }
-    // TODO isValid
-    /*public boolean isValid() {
-        Block previous, actual;
-        String hashPrefix = new String(new char[Config.difficulty]).replace('\0','0');
+
+    public boolean verifyBlockchain() {
+        Block prev, actual;
+        String prefix = new String(new char[Config.difficulty]).replace('\0','0');
         int i=1;
-        while (i< chain.size()) {
+        while (i<chain.size()) {
             actual = chain.get(i);
-            previous = chain.get(i-1);
+            prev = chain.get(i-1);
             if(!actual.hashBlock.equals(actual.calculateHash()))
                 return false;
-            if(!actual.previousHash.equals(previous.hashBlock))
+            if(!actual.previousHash.equals(prev.hashBlock))
                 return false;
-            if(!actual.hashBlock.substring(0,Config.difficulty).equals(hashPrefix))
+            if(!actual.hashBlock.substring(0,Config.difficulty).equals(prefix))
                 return false;
             int k=0;
             while(k < actual.transactions.size()) {
@@ -130,7 +130,6 @@ public class Blockchain {
         }
         return true;
     }
-*/
 
     public Block getLastBlock() {
         return chain.get(chain.size() - 1);
