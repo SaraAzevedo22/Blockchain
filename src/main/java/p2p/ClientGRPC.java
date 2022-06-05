@@ -28,6 +28,7 @@ public class ClientGRPC {
         channel.shutdown().awaitTermination(4, TimeUnit.SECONDS);
     }
 
+    // TODO find node peer & send block & send transaction & get blockchain
 
     public boolean ping() {
         Ping request = Ping.newBuilder()

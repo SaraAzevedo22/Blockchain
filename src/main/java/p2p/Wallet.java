@@ -17,8 +17,8 @@ import org.bouncycastle.util.encoders.Base64;
 public class Wallet {
     private String privateKey;
     private String publicKey;
-    private String id;
     int amountTransfered = 0;
+
     Hashtable<String, Integer> users = new Hashtable<>();
 
     static { Security.addProvider(new BouncyCastleProvider());  }
@@ -75,10 +75,6 @@ public class Wallet {
         boolean isCorrect = signature.verify(receivedSignature);
 
         return isCorrect;
-    }
-
-    private String getPrivateKey() {
-        return privateKey;
     }
 
     public String getPublicKey() {

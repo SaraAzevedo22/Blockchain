@@ -102,8 +102,7 @@ public class Blockchain {
         System.out.println("Block added SUCCESSFULLY.");
         return true;
     }
-
-
+    // TODO isValid
     /*public boolean isValid() {
         Block previous, actual;
         String hashPrefix = new String(new char[Config.difficulty]).replace('\0','0');
@@ -135,16 +134,7 @@ public class Blockchain {
         }
         return true;
     }
-
-    public void printChain() {
-        System.out.println("Blockchain:");
-        String verifyChain;
-        if(this.isValid())
-            verifyChain = "True";
-        else
-            verifyChain = "False";
-        System.out.println("Chain valid:" + verifyChain);
-    }*/
+*/
 
     public Block getLastBlock() {
         return chain.get(chain.size() - 1);

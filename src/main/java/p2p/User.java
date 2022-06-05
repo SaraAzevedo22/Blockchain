@@ -24,7 +24,9 @@ public class User {
     public User() {
     }
 
-    // TODO ADD LEDGER
+    // TODO evaluate trust & mine block thread & share transaction & share block
+    //  calculate neighbor hash & start mining & start pinging
+
     public void iniateUser(int portNo, String ip) {
         this.portNo = portNo;
         this.ipAddress = ip;
@@ -32,8 +34,6 @@ public class User {
         this.blockchain = new Blockchain();
         this.id = getId();
         this.nonce = 0;
-
-
     }
 
     private String getId() {
@@ -57,8 +57,6 @@ public class User {
         TreeSet<Contact> tempTree = KademliaBucket.getClonedTreeSet();
         for(Contact contact : tempTree) {
             Blockchain tempBlockchain = null;
-
-
         }
     }
 
@@ -78,10 +76,6 @@ public class User {
 
     public static void addNodesToTrash(Node node) {
         trashlist.add(node);
-    }
-
-    public static ArrayList<Node> getTrashlist() {
-        return trashlist;
     }
 
     public static boolean isTrash(Node node) {

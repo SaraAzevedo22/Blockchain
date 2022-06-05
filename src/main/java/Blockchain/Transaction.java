@@ -15,7 +15,6 @@ public class Transaction {
     public int sum;
     public long timestamp;
     public String hashBlock;
-    // TODO call Wallet file
     public byte[] signature;
 
 
@@ -26,12 +25,10 @@ public class Transaction {
         this.destinationName = destinationName;
         this.timestamp = timestamp;
         this.sum = sum;
-        // TODO call Wallet file
         transactionIsValid();
         this.signature = signature;
     }
 
-    // TODO call Wallet file
     public Transaction(int sum, String sourceName, String destinationName) {
         this.sum = sum;
         this.sourceName = sourceName;
@@ -48,7 +45,6 @@ public class Transaction {
         return Config.calculateSHA256(this.sourceName + this.destinationName + this.timestamp + this.sum);
     }
 
-    // TODO call Wallet file
     public boolean signTransaction(Wallet sign) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
         if(!this.hashBlock.equals(this.calculateHash())) {
             System.out.println("Error: the transaction was tampered!");
