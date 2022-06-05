@@ -1,5 +1,6 @@
 package Blockchain;
 
+import p2p.User;
 import p2p.Wallet;
 
 import java.security.InvalidKeyException;
@@ -12,6 +13,7 @@ import java.util.List;
 public class Blockchain {
     public static List<Block> chain = new ArrayList<>();  // TODO <Block> ??
     public List<Transaction> waitingTransactions = new ArrayList<>();  // TODO <> ??
+    private final int MAX_TRANSACTION = 5;
 
     //Constructor
     public Blockchain(List<Block> chain, List<Transaction> waitingTransactions) {
@@ -133,4 +135,39 @@ public class Blockchain {
     public Block getLastBlock() {
         return chain.get(chain.size() - 1);
     }
+
+    public Block mineWaitingTransactions(Wallet miner) {
+        List<Transaction> newTransaction = new ArrayList<>();
+        Block newEmptyBlock;
+
+        if(waitingTransactions.size() == 0) {
+            System.out.println("Waiting transaction list is empty");
+            return null;
+        }
+
+        if(waitingTransactions.size() < MAX_TRANSACTION) {
+            System.out.println("There is not enough transactions to mine a full block.");
+            newTransaction.addAll(waitingTransactions);
+        } else {
+            int i = 0;
+            while(i<MAX_TRANSACTION) {
+                newTransaction.add(waitingTransactions.get(i));
+            }
+        }
+
+        if(chain.size() != 0) {
+            newEmptyBlock = new Block(chain.size() + "", this.getLastBlock().hashBlock, newTransaction, User.wallet);
+        } else {
+            newEmptyBlock = new Block(0 + "", "", newTransaction, User.wallet);
+        }
+
+        newEmptyBlock.mineBlock();
+        chain.add(newEmptyBlock);
+        waitingTransactions.subList(0, newTransaction.size()).clear();
+        return newEmptyBlock;
+    }
+
+
+
+
 }

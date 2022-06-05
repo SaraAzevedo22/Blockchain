@@ -1,58 +1,67 @@
 package Blockchain;
 
+import p2p.Kademlia;
+import p2p.ServerGrpc;
+import p2p.User;
 import p2p.Wallet;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
-
-/*
-        List<Transaction> tempTxList = new ArrayList();
-        long i = 2345;
-        tempTxList.add("My","name", "is", i, i);
-        tempTxList.add();
-        tempTxList.add();
-        tempTxList.add("Nikhil");
-        tempTxList.add("sara");
-
-        MerkleTree merkleTrees = new MerkleTree(tempTxList);
-        merkleTrees.merkle_tree();
-        System.out.println("root : " + merkleTrees.getRoot());
-*/
+    public static void menu() {
+        int i=1;
+        System.out.println("Menu\n" +
+                (i++) + "Personal Information\n" +
+                (i++) + "Mining\n" +
+                "Choose an option.\n");
+    }
 
 
-        // b4ad42740f74141d5dc4472608c9f8aebff7fcb7694da2edbf4241f292ba5549 sara
+    public static void main(String[] args) throws IOException {
+        int port = 10555;
 
-        List<Block> blockchain = new ArrayList<>();
-        Wallet wallet = new Wallet();
+        if(Config.bootstrapNode.equals("")) {
+            port = 8080;
+        }
+        User userTest = new User();
+        String ip = "localhost";
+        System.out.println("Boas");
+        userTest.iniateUser(port,ip);
+        System.out.println("Boas2");
 
-        long a = 2345678;
-        List<Transaction> trans = new ArrayList<>();
-        Transaction transaction1 = new Transaction(1234,"Sam", "Ryan");
-        Transaction transaction2 = new Transaction(4321, "Sara", "Marcia");
-        Transaction transaction3 = new Transaction(1234, "Sam", "Ryan");
-        trans.add(transaction1);
-        trans.add(transaction2);
+        ServerGrpc server = new ServerGrpc("localhost", port);
+        server.start();
 
-        System.out.println("trans:" + trans);
+        userTest.startPing();
+        Kademlia.findNode(User.id);
 
-        Block firstBlock = new Block("0", "0", trans, wallet);
-        System.out.println(firstBlock.hashCode());
-        blockchain.add(firstBlock);
+        Scanner in = new Scanner(System.in);
+        while(true) {
+            menu();
+            int n = in.nextInt();
+            in.nextLine();
+            switch (n) {
+                case 1:
+                    System.out.println("ID: " + User.id);
+                    System.out.println("IP: " + User.ipAddress + " Port: " + User.portNo);
+                    System.out.println("PublicKey: " + User.publicKey);
+                    break;
+                case 2:
+                    User.startMining();
+                    break;
+                default:
+                    System.out.println("That option does not exist.");
+                    break;
+            }
+        }
 
-        trans.add(transaction3);
-        System.out.println("trans:" + trans);
 
 
-        //Block secondBlock = new Block("1", firstBlock.previousHash, trans);
-        //System.out.println(secondBlock.hashCode());
-        //blockchain.add(secondBlock);
-
-        //blockchain.printChain();
-        System.out.println(blockchain);
 
     }
 

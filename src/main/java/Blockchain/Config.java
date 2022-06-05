@@ -7,6 +7,7 @@ public class Config {
     public static int difficulty = 5;
     public static int reward = 1;
     public static final double min_reputation = 0.7;
+    public static String bootstrapNode = "000003a0f61af479f1fb7c3a54dc3dfb9b5699086cc98132a376da936460898d";
     final int ID_LENGTH = 160;
 
     //Calculate SHA256
