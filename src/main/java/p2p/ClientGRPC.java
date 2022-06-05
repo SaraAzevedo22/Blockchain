@@ -1,6 +1,5 @@
 package p2p;
 
-import Blockchain.Blockchain;
 import com.proto.test.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -33,7 +32,7 @@ public class ClientGRPC {
     }
 
     public boolean ping() {
-        System.out.println("MEKIE MERMAO");
+        //System.out.println("Debugss ping");
         Ping request = Ping.newBuilder()
                 .setId(User.id)
                 .setIpAddress(User.ipAddress)
@@ -41,10 +40,10 @@ public class ClientGRPC {
                 .setProof(User.proof)
                 .setPublicKey(User.publicKey)
                 .build();
-        System.out.println("AQUIIIIIIIIIIIIIII");
+        //System.out.println("Debugss ping 2");
         System.out.println("request = " + request);
         PingResponse response = blockingStub.ping(request);
-        System.out.println("BOAAAAAAAAAAAAAAAAAAAS");
+        //System.out.println("Debugss ping 3");
         if(response != null) return true;
         else return false;
     }

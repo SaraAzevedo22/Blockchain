@@ -3,19 +3,18 @@ package p2p;
 import java.util.Objects;
 
 public class Node {
-    String guid;
-    String ipAddress;
     int portNo;
-    int sumInteractions;
+    String ipAddress;
+    String guid;
     int successInteractions;
-
+    int sumInteractions;
 
     public Node(String guid, String ipAddress, int portNo) {
         this.guid = guid;
         this.ipAddress = ipAddress;
         this.portNo = portNo;
-        this.sumInteractions = 0;
         this.successInteractions = 0;
+        this.sumInteractions = 0;
     }
 
     public String getGuid() {
@@ -30,6 +29,14 @@ public class Node {
         return this.portNo;
     }
 
+    public void incrementInteractions() {
+        this.successInteractions++;
+        this.sumInteractions++;
+    }
+
+    public void incrementUnsuccessfulInteractions() {
+        this.sumInteractions++;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,14 +49,5 @@ public class Node {
     @Override
     public int hashCode() {
         return Objects.hash(guid, ipAddress, portNo);
-    }
-
-    public void incrementInteractions() {
-        this.sumInteractions++;
-        this.successInteractions++;
-    }
-
-    public void incrementUnsuccessfulInteractions() {
-        this.sumInteractions++;
     }
 }

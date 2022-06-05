@@ -1,38 +1,31 @@
 package p2p;
 
-
 import Blockchain.Blockchain;
-import Blockchain.Config;
+import Blockchain.Settings;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
-import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 public class User {
     public static String id;
     public static String ipAddress;
-    public static int portNo;
-    public static Blockchain blockchain;
     public static String publicKey;
-    public static Wallet wallet = new Wallet();
+    public static Blockchain blockchain;
+    public static int portNo;
     public static int proof = 0;
+    public static Wallet wallet = new Wallet();
     public static ArrayList<Node> trashList = new ArrayList<>();
     public static KademliaBucket kadBucket = new KademliaBucket();
     public static StayinAliveThread stayinAliveThread = new StayinAliveThread();
     public static MiningBlockThread miningBlockThread = new MiningBlockThread();
 
-    public User() {
-    }
-
-    // TODO evaluate trust & mine block thread & share transaction & share block
-    //  calculate neighbor hash & start mining & start pinging
+    public User() { }
 
     public void iniateUser(int portNo, String ip) {
         this.portNo = portNo;
@@ -43,7 +36,7 @@ public class User {
         this.id = getId();
 
         try {
-            if(Config.bootstrapNode.equals("")) User.blockchain = new Blockchain(User.wallet);
+            if(Settings.bootstrapNode.equals("")) User.blockchain = new Blockchain(User.wallet);
             else User.blockchain = new Blockchain();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -55,32 +48,28 @@ public class User {
             e.printStackTrace();
         }
 
-
-        if(Config.bootstrapNode.equals("")) {
-            Config.bootstrapNode = User.id;
-        }
-        else {
-            Node tempNode = new Node(Config.bootstrapNode, ip,8080);
+        if(Settings.bootstrapNode.equals("")) {
+            Settings.bootstrapNode = User.id;
+        } else {
+            Node tempNode = new Node(Settings.bootstrapNode, ip,8080);
             User.kadBucket.addNodeToList(tempNode);
             System.out.println("Node = " + tempNode);
             Kademlia.pingNode(tempNode);
-            System.out.println("ARMED HOE");
+            System.out.println("debug ping");
         }
-
     }
 
     private String getId() {
-        String prefix = new String(new char[Config.difficulty]).replace('\0','0');
+        String prefix = new String(new char[Settings.difficulty]).replace('\0','0');
          do {
             proof++;
             id = calculateHashId(this.ipAddress, this.portNo, this.publicKey, this.proof);
-        } while(!id.substring(0, Config.difficulty).equals(prefix));
+        } while(!id.substring(0, Settings.difficulty).equals(prefix));
         return id;
     }
 
-
     public String calculateHashId(String ip,int portNo, String publicKey, int proof) {
-        return Config.calculateSHA256(ip + portNo + publicKey + proof); //Apply SHA256 to User ID
+        return Settings.calculateSHA256(ip + portNo + publicKey + proof); //Apply SHA256 to User ID
     }
 
     public static void startPing() {
@@ -95,7 +84,6 @@ public class User {
         List<Node> bucket = KademliaBucket.getClonedList();
         for (Node node : bucket) {
             Blockchain blockchain = null;
-
             if (blockchain != null) {
                 if (blockchain.verifyBlockchain())
                     User.kadBucket.getNode(String.valueOf(node.guid)).incrementInteractions();
@@ -112,7 +100,7 @@ public class User {
         double integrity = -1;
         if(node.sumInteractions >= 1)
             integrity = node.successInteractions / node.sumInteractions;
-        if(integrity < Config.min_reputation)
+        if(integrity < Settings.min_reputation)
             User.TrashNodes(node);
     }
 
@@ -163,11 +151,9 @@ public class User {
                 }
 
                 if(User.blockchain.getFromWaitingTransactions().size() >= 1) {
-                    String hashBlock = Config.calculateSHA256(new Date().getTime() + "");
-
+                    String hashBlock = Settings.calculateSHA256(new Date().getTime() + "");
                     User.blockchain.mineWaitingTransactions(User.wallet);
                     User.wallet.upgradeLedger(User.blockchain.getLastBlock());
-
                 }
             }
         }

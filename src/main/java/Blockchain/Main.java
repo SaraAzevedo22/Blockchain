@@ -1,15 +1,10 @@
 package Blockchain;
 
 import p2p.Kademlia;
-import p2p.ServerGrpc;
+import p2p.ServerGRPC;
 import p2p.User;
-import p2p.Wallet;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -21,20 +16,19 @@ public class Main {
                 "Choose an option.\n");
     }
 
-
     public static void main(String[] args) throws IOException {
-        int port = 10555;
+        int port = 12765;
 
-        if(Config.bootstrapNode.equals("")) {
+        if(Settings.bootstrapNode.equals("")) {
             port = 8080;
         }
         User userTest = new User();
         String ip = "localhost";
-        System.out.println("Boas");
+        //System.out.println("Debug");
         userTest.iniateUser(port,ip);
-        System.out.println("Boas2");
+        //System.out.println("Debug2");
 
-        ServerGrpc server = new ServerGrpc("localhost", port);
+        ServerGRPC server = new ServerGRPC("localhost", port);
         server.start();
 
         userTest.startPing();

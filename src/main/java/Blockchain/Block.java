@@ -41,13 +41,13 @@ public class Block {
     public String calculateHash() {
         MerkleTree merkleTree = new MerkleTree(transactions);
         merkleTree.merkle_tree();
-        return Config.calculateSHA256(this.hashId + this.previousHash + this.timestamp + this.nonce);
+        return Settings.calculateSHA256(this.hashId + this.previousHash + this.timestamp + this.nonce);
     }
 
     //Mining the block
     public int mineBlock() {
-        String prefix = new String(new char[Config.difficulty]).replace('\0','0');
-        while(!hashBlock.substring(0, Config.difficulty).equals(prefix)) {
+        String prefix = new String(new char[Settings.difficulty]).replace('\0','0');
+        while(!hashBlock.substring(0, Settings.difficulty).equals(prefix)) {
             nonce++;
             hashBlock = calculateHash();
         }

@@ -13,7 +13,6 @@ import java.util.List;
 public class Blockchain {
     public static List<Block> chain = new ArrayList<>();
     public List<Transaction> waitingTransactions = new ArrayList<>();
-    private final int MAX_TRANSACTION = 5;
 
     //Constructor
     public Blockchain(List<Block> chain, List<Transaction> waitingTransactions) {
@@ -21,13 +20,18 @@ public class Blockchain {
         this.waitingTransactions = waitingTransactions;
     }
 
-    public Blockchain(Wallet wallet) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
-        genesisBlock(wallet);
-    }
-
     public Blockchain() {
         this.chain = new ArrayList<>();
         this.waitingTransactions = new ArrayList<>();
+    }
+
+    public Blockchain(Blockchain previousBlockchain) {
+        defineChain(previousBlockchain.getChain());
+        addToWaitingTransactions(previousBlockchain.getFromWaitingTransactions());
+    }
+
+    public Blockchain(Wallet wallet) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
+        genesisBlock(wallet);
     }
 
     public Transaction addTransaction(int amount, Wallet send, Wallet received) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException {
@@ -43,7 +47,7 @@ public class Blockchain {
         this.mineWaitingTransactions(wallet);
     }
 
-    //Add waiting new pending transactions to the waiting transactions list //TODO apagar??
+    //Add waiting new pending transactions to the waiting transactions list
     public void addToWaitingTransactions(List<Transaction> pendingTransactions){
         int temp=0;
         while(temp< pendingTransactions.size()){
@@ -53,12 +57,11 @@ public class Blockchain {
         }
     }
 
-    //Get the waiting transactions //TODO apagar??
+    //Get the waiting transactions
     public List<Transaction> getFromWaitingTransactions() {
         return waitingTransactions;
     }
 
-    //? blocks to the chain //TODO apagar??
     public void defineChain(List<Block> oldChain) {
         for(int i=0; i<oldChain.size(); i++) {
             Block actualBlock = oldChain.get(i);
@@ -70,7 +73,7 @@ public class Blockchain {
         }
     }
 
-    //Get the chain //TODO apagar??
+    //Get the chain
     public static List<Block> getChain(){return chain;}
 
     //Add blocks to the chain
@@ -103,7 +106,7 @@ public class Blockchain {
 
     public boolean verifyBlockchain() {
         Block prev, actual;
-        String prefix = new String(new char[Config.difficulty]).replace('\0','0');
+        String prefix = new String(new char[Settings.difficulty]).replace('\0','0');
         int i=1;
         while (i<chain.size()) {
             actual = chain.get(i);
@@ -112,7 +115,7 @@ public class Blockchain {
                 return false;
             if(!actual.previousHash.equals(prev.hashBlock))
                 return false;
-            if(!actual.hashBlock.substring(0,Config.difficulty).equals(prefix))
+            if(!actual.hashBlock.substring(0,Settings.difficulty).equals(prefix))
                 return false;
             int k=0;
             while(k < actual.transactions.size()) {
@@ -140,12 +143,12 @@ public class Blockchain {
             return null;
         }
 
-        if(waitingTransactions.size() < MAX_TRANSACTION) {
+        if(waitingTransactions.size() < Settings.max_transaction) {
             System.out.println("There is not enough transactions to mine a full block.");
             newTransaction.addAll(waitingTransactions);
         } else {
             int i = 0;
-            while(i<MAX_TRANSACTION) {
+            while(i < Settings.max_transaction) {
                 newTransaction.add(waitingTransactions.get(i));
             }
         }

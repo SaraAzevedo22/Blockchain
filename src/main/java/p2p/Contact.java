@@ -9,7 +9,6 @@ public class Contact {
     long lastSeen;
     int unavblCount; //Number of times the node is unavailable
 
-
     public Contact(Node node) {
         this.node = node;
         this.lastSeen = currentTimeMillis()/1000L;
@@ -47,5 +46,4 @@ public class Contact {
     public int hashCode() {
         return Objects.hash(node);
     }
-
 }

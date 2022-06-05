@@ -2,14 +2,13 @@ package p2p;
 
 import Blockchain.Block;
 import Blockchain.Blockchain;
-import Blockchain.Config;
+import Blockchain.Settings;
 import Blockchain.Transaction;
 
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.Hashtable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Base64;
@@ -19,9 +18,7 @@ public class Wallet {
     private String privateKey;
     private String publicKey;
     int amountTransfered = 0;
-
     Hashtable<String, Integer> users = new Hashtable<>();
-
     static { Security.addProvider(new BouncyCastleProvider());  }
 
 
@@ -40,7 +37,6 @@ public class Wallet {
             byte[] encodedPublicKey = pubKey.getEncoded();
             this.privateKey = new String (Base64.encode(encodedPrivateKey));
             this.publicKey = new String (Base64.encode(encodedPublicKey));
-
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Exception thrown : " + e);
         }
@@ -54,7 +50,7 @@ public class Wallet {
         KeyFactory fact = KeyFactory.getInstance("RSA");
         signature.initSign(fact.generatePrivate(spec));
 
-        byte[] messageBytes = Config.calculateSHA256(publicKey.concat(String.valueOf(message))).getBytes();
+        byte[] messageBytes = Settings.calculateSHA256(publicKey.concat(String.valueOf(message))).getBytes();
         signature.update(messageBytes);
 
         byte[] digitalSignature = signature.sign();
@@ -127,7 +123,7 @@ public class Wallet {
         if(users.get(block.publicKey) != null) {
             users.put(block.publicKey, users.get(block.publicKey)+1);
         } else {
-            users.put(block.publicKey, amountTransfered + Config.reward);
+            users.put(block.publicKey, amountTransfered + Settings.reward);
         }
     }
 }

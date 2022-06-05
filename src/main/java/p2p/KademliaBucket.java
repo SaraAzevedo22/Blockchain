@@ -1,8 +1,7 @@
 package p2p;
 
-import Blockchain.Config;
+import Blockchain.Settings;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeSet;
 
 public class KademliaBucket {
@@ -170,7 +169,7 @@ public class KademliaBucket {
 
 
     public boolean isNodeValid(String id, String ipAddress, int portNo, int proof, String publicKey) {
-        return Config.calculateSHA256(ipAddress + portNo + proof + publicKey).equals(id);
+        return Settings.calculateSHA256(ipAddress + portNo + proof + publicKey).equals(id);
     }
 
     public ArrayList<Node> getNeighbours(ArrayList<Node> nodesList, String string) {
@@ -205,7 +204,6 @@ public class KademliaBucket {
         for(Node node: list) doesNodeExist(node,proof,"");
     }
 
-    // TODO trustness
     public static ArrayList<Node> getClonedList() {
         return (ArrayList)lastSeenNodes.clone();
     }

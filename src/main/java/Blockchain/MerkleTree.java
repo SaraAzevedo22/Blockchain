@@ -1,10 +1,11 @@
 package Blockchain;
-import java.util.ArrayList;
-import java.util.List;
 
-public class MerkleTree extends Config{
-    String root; //Merkle Tree root
-    List<Transaction> transactionsList; //List of Transactions
+import java.util.List;
+import java.util.ArrayList;
+
+public class MerkleTree extends Settings{
+    String root; //Root of the Merkle Tree
+    List<Transaction> transactionsList; //List of the Transactions
 
     public MerkleTree(List<Transaction> transactionsList) {
         this.transactionsList = transactionsList;

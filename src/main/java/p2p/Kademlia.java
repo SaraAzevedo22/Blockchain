@@ -1,8 +1,8 @@
 package p2p;
 
+import java.util.HashSet;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Kademlia {
@@ -19,20 +19,18 @@ public class Kademlia {
         int maxLength = Math.max(node1.length(),node2.length());
 
         if(node1.length() != node2.length()) {
-            if(node1.length() > node2.length()) {
-                node2 = addPadding(node1.length() - node2.length()) + node2;
-            }
-            else node1 = addPadding(node2.length() - node1.length()) + node1;
+            if(node1.length() > node2.length()) { node2 = addPadding(node1.length() - node2.length()) + node2; }
+            else { node1 = addPadding(node2.length() - node1.length()) + node1; }
         }
 
-        for(int i = maxLength - 1; i >= 0; i--) {
-            if(node1.charAt(i) != node2.charAt(i)) finalXor = "1" + finalXor;
-            else finalXor = "0" + finalXor;
+        int i=maxLength-1;
+        while(i >= 0) {
+            if(node1.charAt(i) != node2.charAt(i)) { finalXor = "1" + finalXor; }
+            else { finalXor = "0" + finalXor; }
+            i--;
         }
-
 
         return finalXor;
-
     }
 
     public static String stringToBitString(String str) {
@@ -40,7 +38,8 @@ public class Kademlia {
     }
 
     public static String addPadding(int n) {
-        return "0".repeat(Math.max(0,n));
+        String str = "0".repeat(Math.max(0,n));
+        return str;
     }
 
     public static Node findNode(String target) {
@@ -75,14 +74,11 @@ public class Kademlia {
             closestNodes = User.kadBucket.getNeighbours(nodesFound, target);
             nodesFound.clear();
         }
-
     }
 
     private static void removeDuplicated(ArrayList<Node> users) {
         Set<Node> user = new HashSet<>(users);
-
         user.clear();
         user.addAll(users);
     }
-
 }
